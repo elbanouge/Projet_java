@@ -4,7 +4,6 @@
  */
 package Classes;
 
-import com.mysql.cj.xdevapi.PreparableStatement;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -13,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,10 +44,11 @@ public class Fonctions {
         label.setIcon(new ImageIcon(img));
     }
     
+    PreparedStatement ps;
+    Statement st;
+    ResultSet rs;
     public ResultSet getData(String req){
-        PreparedStatement ps;
-        ResultSet rs = null;
- 
+        
         try {            
             ps = DB.getConnection().prepareStatement(req);
             rs = ps.executeQuery();
@@ -56,6 +57,24 @@ public class Fonctions {
             Logger.getLogger(Fonctions.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
+    }
+    
+    public int countData(String tableName){
+        int total = 0;
+ 
+        try {            
+            String req = "SELECT Count(*) as total from `"+tableName+"`";
+            
+            st = DB.getConnection().createStatement();
+            rs = st.executeQuery(req);
+   
+            if(rs.next()){
+                total = rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Fonctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
     }
     
     public void customTable(JTable table){

@@ -158,13 +158,11 @@ public class Login extends javax.swing.JFrame {
         String user = jTextFieldUser.getText();        
         String pass = jPasswordFieldPass.getText();
 
-        String req = "SELECT * FROM users where user = ? and pass = ?";
+        String req = "SELECT * FROM user where NAMEUS = ? and PASSUS = ?";
                                                     
-        //Uesr
         if(user.trim().equals("") || pass.trim().equals("")){
-            JOptionPane.showConfirmDialog(null, "Les champs mot de passe ou nom utilisateur vide", "Attention", 2);
-        }
-        else{
+            JOptionPane.showMessageDialog(null, "Les champs mot de passe ou nom utilisateur vide", "Attention", 2);
+        }else{
          
             try {
                 ps = DB.getConnection().prepareStatement(req);
@@ -174,12 +172,11 @@ public class Login extends javax.swing.JFrame {
                 rs = ps.executeQuery();
                 
                 if(rs.next()){
-                    //System.err.println("Ok");
                     d.setVisible(true);
                     this.dispose();
                 }
                 else{
-                    JOptionPane.showConfirmDialog(null, "Les champs mot de passe ou nom utilisateur incorrect", "Attention", 2);
+                    JOptionPane.showMessageDialog(null, "Les champs mot de passe ou nom utilisateur incorrect", "Attention", 2);
                 }
 
             } catch (SQLException ex) {

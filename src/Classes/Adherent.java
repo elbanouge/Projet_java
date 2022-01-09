@@ -22,13 +22,13 @@ public class Adherent {
     private String cne;
     private String nom;
     private String prenom;
-    private Date dateNaiss;
+    private String dateNaiss;
     private String email;
     private String tel;
     private byte sexe;
     private byte[] image;
 
-    public Adherent(int id, String cne, String nom, String prenom, Date dateNaiss, String email, String tel, byte sexe, byte[] image) {
+    public Adherent(int id, String cne, String nom, String prenom, String dateNaiss, String email, String tel, byte sexe, byte[] image) {
         this.id = id;
         this.cne = cne;
         this.nom = nom;
@@ -59,7 +59,7 @@ public class Adherent {
         return prenom;
     }
 
-    public Date getDateNaiss() {
+    public String getDateNaiss() {
         return dateNaiss;
     }
 
@@ -95,7 +95,7 @@ public class Adherent {
         this.prenom = prenom;
     }
 
-    public void setDateNaiss(Date dateNaiss) {
+    public void setDateNaiss(String dateNaiss) {
         this.dateNaiss = dateNaiss;
     }
 
@@ -119,15 +119,15 @@ public class Adherent {
     ResultSet rs;
     Fonctions f = new Fonctions();
     
-    public void Ajouter(String cne, String nom, String prenom, Date date, String email, String tel, byte sexe, byte[] img){
+    public void Ajouter(String cne, String nom, String prenom, String date, String email, String tel, byte sexe, byte[] img){
         try {
-            String req = "INSERT INTO `adherent` (`CNE_ADHR`, `NOMADHR`, `PRENOMADHR`, `DATENAISSADHR`, `EMAILADHR`, `TELADHR`, `SEXEADHR`, `IMAGEADHR`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            String req = "INSERT INTO `adherent` (`CNEADHR`, `NOMADHR`, `PRENOMADHR`, `DATENAISSADHR`, `EMAILADHR`, `TELADHR`, `SEXEADHR`, `IMAGEADHR`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
             
             ps = DB.getConnection().prepareStatement(req);
             ps.setString(1, cne);               
             ps.setString(2, nom);                     
             ps.setString(3, prenom);            
-            ps.setString(4, date.toString());
+            ps.setString(4, date);
             ps.setString(5, email);
             ps.setString(6, tel);
             ps.setByte(7, sexe);
@@ -142,19 +142,19 @@ public class Adherent {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Adherent n'est pas ajouter", "Attention", 2);
-            Logger.getLogger(Auteur.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Adherent.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public void Modifier(String cne, String nom, String prenom, Date date, String email, String tel, byte sexe, byte[] img) {
+    public void Modifier(String cne, String nom, String prenom, String date, String email, String tel, byte sexe, byte[] img) {
         try {
             
-        String reqU = "UPDATE `gestionbiblio`.`adherent` SET `NOMADHR`=?, `PRENOMADHR`=?, `DATENAISSADHR`=?, `EMAILADHR`=?, `TELADHR`=?, `SEXEADHR`=?, `IMAGEADHR`=? WHERE `CNE_ADHR`=?;";
+        String reqU = "UPDATE `gestionbiblio`.`adherent` SET `NOMADHR`=?, `PRENOMADHR`=?, `DATENAISSADHR`=?, `EMAILADHR`=?, `TELADHR`=?, `SEXEADHR`=?, `IMAGEADHR`=? WHERE `CNEADHR`=?;";
             
             ps = DB.getConnection().prepareStatement(reqU);
             ps.setString(1, nom);            
             ps.setString(2, prenom);            
-            ps.setString(3, date.toString());
+            ps.setString(3, date);
             ps.setString(4, email);
             ps.setString(5, tel);
             ps.setByte(6, sexe);
@@ -188,16 +188,16 @@ public class Adherent {
             }
         }catch(SQLException exception){
             JOptionPane.showMessageDialog(null, "Adherent n'est pas supprime", "Attention", 2);
-            Logger.getLogger(Auteur.class.getName()).log(Level.SEVERE, null, exception);
+            Logger.getLogger(Adherent.class.getName()).log(Level.SEVERE, null, exception);
         }
     }
     
     public Adherent getAdherentById(String cne, int idAhr) throws SQLException{
         Adherent aut = null;
-        String req = "SELECT * FROM `adherent` WHERE CNE_ADHR = '"+cne+"';";
+        String req = "SELECT * FROM `adherent` WHERE CNEADHR = '"+cne+"';";
         
         if(cne == null){
-            req = "SELECT * FROM `adherent` WHERE ID_ADHR = '"+idAhr+"';";            
+            req = "SELECT * FROM `adherent` WHERE ID_ADHERENT = '"+idAhr+"';";            
         }
         
         ResultSet rs = f.getData(req);
@@ -205,10 +205,10 @@ public class Adherent {
         if(rs != null){
 
             while(rs.next()){
-                aut = new Adherent(rs.getInt("ID_ADHR"), rs.getString("CNE_ADHR"), rs.getString("NOMADHR"), rs.getString("PRENOMADHR"), rs.getDate("DATENAISSADHR"), rs.getString("EMAILADHR"), rs.getString("TELADHR"), rs.getByte("SEXEADHR"), rs.getBytes("IMAGEADHR"));
+                aut = new Adherent(rs.getInt("ID_ADHERENT"), rs.getString("CNEADHR"), rs.getString("NOMADHR"), rs.getString("PRENOMADHR"), rs.getString("DATENAISSADHR"), rs.getString("EMAILADHR"), rs.getString("TELADHR"), rs.getByte("SEXEADHR"), rs.getBytes("IMAGEADHR"));
             }
         }else{
-                JOptionPane.showMessageDialog(null, "la liste des auteur est vide", "Attention", 2);
+                JOptionPane.showMessageDialog(null, "la liste des adherents est vide", "Attention", 2);
         }
         return aut;
     }
@@ -228,16 +228,16 @@ public class Adherent {
             if(rs != null){
 
                 while(rs.next()){
-                Adherent aut = new Adherent(rs.getInt("ID_ADHR"), rs.getString("CNE_ADHR"), rs.getString("NOMADHR"), rs.getString("PRENOMADHR"), rs.getDate("DATENAISSADHR"), rs.getString("EMAILADHR"), rs.getString("TELADHR"), rs.getByte("SEXEADHR"), rs.getBytes("IMAGEADHR"));
+                Adherent aut = new Adherent(rs.getInt("ID_ADHERENT"), rs.getString("CNEADHR"), rs.getString("NOMADHR"), rs.getString("PRENOMADHR"), rs.getString("DATENAISSADHR"), rs.getString("EMAILADHR"), rs.getString("TELADHR"), rs.getByte("SEXEADHR"), rs.getBytes("IMAGEADHR"));
                 list.add(aut);
             }
             }else{
-                JOptionPane.showMessageDialog(null, "la liste des auteur est vide", "Attention", 2);
+                JOptionPane.showMessageDialog(null, "la liste des adherents est vide", "Attention", 2);
             }
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "la liste des auteur est vide", "Attention", 2);
-            Logger.getLogger(Auteur.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "la liste des adherents est vide", "Attention", 2);
+            Logger.getLogger(Adherent.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }

@@ -36,7 +36,6 @@ public class Genres extends javax.swing.JFrame {
         f.customTable(jTableGenres);
         f.customHeaderTable(jTableGenres, new Color(103, 111, 163), 20);
                 
-        jLabelError.setVisible(false);
         AfficherGenres();
     }
 
@@ -171,7 +170,6 @@ public class Genres extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableGenres);
 
         jLabelError.setForeground(new java.awt.Color(255, 51, 51));
-        jLabelError.setText("* Entrer le nom de genre livre");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -222,8 +220,8 @@ public class Genres extends javax.swing.JFrame {
                             .addComponent(jTextFieldNomG, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelError)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonSupp, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonMod, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -260,7 +258,7 @@ public class Genres extends javax.swing.JFrame {
             AfficherGenres();
           
         }catch(NumberFormatException exception){
-            JOptionPane.showMessageDialog(null, "Genre n'est pas modifie", "Attention", 1);
+            JOptionPane.showMessageDialog(null, "Genre n'est pas modifie", "Attention", 2);
         }        
     }//GEN-LAST:event_jButtonSuppActionPerformed
 
@@ -269,6 +267,7 @@ public class Genres extends javax.swing.JFrame {
         String nomG = jTextFieldNomG.getText();
         
         if(nomG.isEmpty()){
+            jLabelError.setText("* Entrer le nom de genre livre");
             jLabelError.setVisible(true);
         }
         else{
@@ -284,6 +283,7 @@ public class Genres extends javax.swing.JFrame {
         String nomG = jTextFieldNomG.getText();
         
         if(nomG.isEmpty()){
+            jLabelError.setText("* Entrer le nom de genre livre");
             jLabelError.setVisible(true);
         }
         else{
@@ -313,7 +313,7 @@ public class Genres extends javax.swing.JFrame {
 
     private void jTextFieldNomGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNomGMouseClicked
         // TODO add your handling code here:
-        jLabelError.setVisible(false);
+        jLabelError.setText("");
     }//GEN-LAST:event_jTextFieldNomGMouseClicked
 
     public void AfficherGenres(){

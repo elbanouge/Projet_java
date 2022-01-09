@@ -537,7 +537,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButtonSuppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuppActionPerformed
         // TODO add your handling code here:
-        SupprimerAdherent supp = new SupprimerAdherent();
+        ModifierAdherent supp = new ModifierAdherent();
         supp.setVisible(true);
     }//GEN-LAST:event_jButtonSuppActionPerformed
 

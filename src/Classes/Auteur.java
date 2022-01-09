@@ -21,10 +21,10 @@ public class Auteur {
     private int id;
     private String nom;
     private String prenom;
-    private Date dateNaiss;
+    private String dateNaiss;
     private String nat;
 
-    public Auteur(int id, String nom, String prenom, Date dateNaiss, String nat) {
+    public Auteur(int id, String nom, String prenom, String dateNaiss, String nat) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -47,7 +47,7 @@ public class Auteur {
         return prenom;
     }
 
-    public Date getDateNaiss() {
+    public String getDateNaiss() {
         return dateNaiss;
     }
 
@@ -67,7 +67,7 @@ public class Auteur {
         this.prenom = prenom;
     }
 
-    public void setDateNaiss(Date dateNaiss) {
+    public void setDateNaiss(String dateNaiss) {
         this.dateNaiss = dateNaiss;
     }
 
@@ -79,7 +79,7 @@ public class Auteur {
     ResultSet rs;
     Fonctions f = new Fonctions();
     
-    public void Ajouter(String nom, String prenom, Date date, String nat){
+    public void Ajouter(String nom, String prenom, String date, String nat){
         try {
             String req = "INSERT INTO `auteur` (`NOMAUT`, `PRENOMAUT`, `DATENAISSAUT`, `NATIONALITEAUT`) VALUES (?, ?, ?, ?);";
             
@@ -101,7 +101,7 @@ public class Auteur {
         }
     }
 
-    public void Modifier(int id, String nom, String prenom, Date date, String nat) {
+    public void Modifier(int id, String nom, String prenom, String date, String nat) {
         try {
         String reqU = "UPDATE `auteur` SET `NOMAUT`=?, `PRENOMAUT`=?, `DATENAISSAUT`=?, `NATIONALITEAUT`=? WHERE  `ID_AUTEUR`=?;";
             
@@ -155,7 +155,7 @@ public class Auteur {
             if(rs != null){
 
                 while(rs.next()){
-                Auteur aut = new Auteur(rs.getInt("ID_AUTEUR"), rs.getString("NOMAUT"), rs.getString("PRENOMAUT"), rs.getDate("DATENAISSAUT"), rs.getString("NATIONALITEAUT"));
+                Auteur aut = new Auteur(rs.getInt("ID_AUTEUR"), rs.getString("NOMAUT"), rs.getString("PRENOMAUT"), rs.getString("DATENAISSAUT"), rs.getString("NATIONALITEAUT"));
                 list.add(aut);
             }
             }else{

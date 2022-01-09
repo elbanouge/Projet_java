@@ -18,14 +18,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author abdel
  */
-public class ListeAuteurs extends javax.swing.JFrame {
+public class SelectAuteur extends javax.swing.JFrame {
     Fonctions f = new Fonctions();    
     Auteur aut = new Auteur();
 
     /**
      * Creates new form Genres
      */
-    public ListeAuteurs() {
+    public SelectAuteur() {
         initComponents();
         f.DisplayIcon(45, 40, null, "/Images/CloseIcon.png", jLabelClose);
         f.DisplayIcon(90, 80, null, "/Images/book.png", jLabelTitre);
@@ -224,14 +224,18 @@ public class ListeAuteurs extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListeAuteurs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SelectAuteur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListeAuteurs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SelectAuteur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListeAuteurs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SelectAuteur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListeAuteurs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SelectAuteur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -240,7 +244,7 @@ public class ListeAuteurs extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListeAuteurs().setVisible(true);
+                new SelectAuteur().setVisible(true);
             }
         });
     }

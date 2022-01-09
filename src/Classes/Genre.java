@@ -51,7 +51,7 @@ public class Genre {
     
     public boolean Ajouter(String nom){
         try {
-            String req = "INSERT INTO `theme`(LIBELLE) VALUES (?);";
+            String req = "INSERT INTO `theme`(LIBELLETH) VALUES (?);";
             
             ps = DB.getConnection().prepareStatement(req);
             ps.setString(1, nom);
@@ -60,7 +60,7 @@ public class Genre {
                 JOptionPane.showMessageDialog(null, "Ajouter genre avec succces", "Ajouter", 1); 
             }
             else{
-                JOptionPane.showMessageDialog(null, "Genre n'est pas ajouter", "Attention", 1);
+                JOptionPane.showMessageDialog(null, "Genre n'est pas ajouter", "Attention", 2);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Genre.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,7 +71,7 @@ public class Genre {
 
     public void Modifier(int id, String nom) {
         try {
-        String reqU = "UPDATE `theme` SET `LIBELLE`= ? WHERE `ID_TH`= ?;";
+        String reqU = "UPDATE `theme` SET `LIBELLETH`= ? WHERE `ID_THEME`= ?;";
             
             ps = DB.getConnection().prepareStatement(reqU);
             ps.setString(1, nom);
@@ -93,7 +93,7 @@ public class Genre {
     public void Supprimer(int idG) {
         
         try{
-            String reqS = "DELETE FROM `theme` WHERE  `ID_TH`= ?;";
+            String reqS = "DELETE FROM `theme` WHERE  `ID_THEME`= ?;";
         
             ps = DB.getConnection().prepareStatement(reqS);
             ps.setInt(1, idG);
@@ -118,7 +118,7 @@ public class Genre {
             if(rs != null){
 
                 while(rs.next()){
-                Genre g = new Genre(rs.getInt("ID_TH"), rs.getString("LIBELLE"));
+                Genre g = new Genre(rs.getInt("ID_THEME"), rs.getString("LIBELLETH"));
                 list.add(g);
             }
             }else{
@@ -142,7 +142,7 @@ public class Genre {
             if(rs != null){
 
                 while(rs.next()){
-                Genre g = new Genre(rs.getInt("ID_TH"), rs.getString("LIBELLE"));
+                Genre g = new Genre(rs.getInt("ID_THEME"), rs.getString("LIBELLETH"));
                 map.put(g.getNom(), g.getId());
             }
             }else{

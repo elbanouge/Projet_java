@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,8 +43,6 @@ public class AjouterAdherent extends javax.swing.JFrame {
         f.DisplayIcon(45, 40, null, "/Images/CloseIcon.png", jLabelClose);
         f.DisplayIcon(90, 80, null, "/Images/book.png", jLabelTitre);
         this.setLocationRelativeTo(null);
-
-        jLabelError.setVisible(false);
     }
 
     /**
@@ -69,7 +68,6 @@ public class AjouterAdherent extends javax.swing.JFrame {
         jTextFieldTelA = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButtonAdd = new javax.swing.JButton();
-        jTextFieldDateNaissA = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldEmailA = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -78,6 +76,7 @@ public class AjouterAdherent extends javax.swing.JFrame {
         jComboBoxSexe = new javax.swing.JComboBox<>();
         jLabelImage = new javax.swing.JLabel();
         jButtonImage = new javax.swing.JButton();
+        jDateChooserDateNaiss = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -111,7 +110,7 @@ public class AjouterAdherent extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabelTitre, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+                .addComponent(jLabelTitre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelClose, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7))
@@ -153,7 +152,6 @@ public class AjouterAdherent extends javax.swing.JFrame {
         jLabel3.setText("Preom :");
 
         jLabelError.setForeground(new java.awt.Color(255, 51, 51));
-        jLabelError.setText("* Error Message");
 
         jTextFieldCNEA.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
         jTextFieldCNEA.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -184,13 +182,6 @@ public class AjouterAdherent extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldDateNaissA.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
-        jTextFieldDateNaissA.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextFieldDateNaissAMouseClicked(evt);
-            }
-        });
-
         jLabel6.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabel6.setText("Date de naissance :");
 
@@ -210,7 +201,7 @@ public class AjouterAdherent extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabel9.setText("Image :");
 
-        jComboBoxSexe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Femme", "Homme" }));
+        jComboBoxSexe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Homme", "Femme", " " }));
 
         jLabelImage.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         jLabelImage.setForeground(java.awt.Color.blue);
@@ -230,54 +221,50 @@ public class AjouterAdherent extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addGap(101, 101, 101)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldCNEA)
-                            .addComponent(jTextFieldNomA)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(89, 89, 89)
-                                .addComponent(jTextFieldPrenomA))
-                            .addComponent(jLabelError, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4))
+                                .addGap(101, 101, 101)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldNomA, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldCNEA)))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addGap(14, 14, 14)
                                     .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                                     .addComponent(jButtonImage, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jTextFieldPrenomA, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel6)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jDateChooserDateNaiss, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel7)
                                                 .addComponent(jLabel5)
                                                 .addComponent(jLabel8))
-                                            .addGap(65, 65, 65))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel6)
-                                            .addGap(18, 18, 18)))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextFieldEmailA)
-                                        .addComponent(jTextFieldDateNaissA)
-                                        .addComponent(jTextFieldTelA)
-                                        .addComponent(jComboBoxSexe, 0, 329, Short.MAX_VALUE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(150, 150, 150))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGap(65, 65, 65)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jTextFieldTelA, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jTextFieldEmailA, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jComboBoxSexe, javax.swing.GroupLayout.Alignment.LEADING, 0, 343, Short.MAX_VALUE)))
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButtonAdd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addGap(29, 29, 29))))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,33 +274,36 @@ public class AjouterAdherent extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldCNEA, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldNomA, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldPrenomA, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldDateNaissA, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextFieldEmailA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jDateChooserDateNaiss, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel6)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldEmailA, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldTelA, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBoxSexe, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jComboBoxSexe, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelImage)
                     .addComponent(jButtonImage, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -328,7 +318,7 @@ public class AjouterAdherent extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,6 +332,7 @@ public class AjouterAdherent extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabelCloseMouseClicked
 
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
         byte sexe = 0;
@@ -349,22 +340,22 @@ public class AjouterAdherent extends javax.swing.JFrame {
         String cne = jTextFieldCNEA.getText();
         String nomA = jTextFieldNomA.getText();
         String prenomA = jTextFieldPrenomA.getText();
-        Date dateA = Date.valueOf(jTextFieldDateNaissA.getText());
+        
+        String dateA = dateFormat.format(jDateChooserDateNaiss.getDate());
         String emailA = jTextFieldEmailA.getText();
         String telA = jTextFieldTelA.getText();
         
         if(jComboBoxSexe.getSelectedItem().toString() == "Homme"){
             sexe = 1;
         }   
-        
+       
         String image = jLabelImage.getText();
-
         
         if(nomA.isEmpty()){
-            jLabelError.setVisible(true);
+            jLabelError.setText("* Entrer le nom de l'adherent");
         }
         else if(prenomA.isEmpty()){
-            jLabelError.setVisible(true);
+            jLabelError.setText("* Entrer le prenom de l'adherent");
         }
         else{
             byte[] img = null;
@@ -374,10 +365,8 @@ public class AjouterAdherent extends javax.swing.JFrame {
                     Path path = Paths.get(ImagePath);
                     img = Files.readAllBytes(path);
                     adh.Ajouter(cne, nomA, prenomA, dateA, emailA, telA, sexe, img);
-                    jTextFieldNomA.setText("");
-                    jTextFieldPrenomA.setText("");
-                    jTextFieldCNEA.setText("");
-                    jTextFieldTelA.setText("");
+                    Vider();
+                
                 } catch (IOException ex) {
                     Logger.getLogger(AjouterAdherent.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -387,47 +376,51 @@ public class AjouterAdherent extends javax.swing.JFrame {
 
     private void jTextFieldNomAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNomAMouseClicked
         // TODO add your handling code here:
-        jLabelError.setVisible(false);
+        jLabelError.setText("");
     }//GEN-LAST:event_jTextFieldNomAMouseClicked
 
     private void jTextFieldPrenomAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldPrenomAMouseClicked
         // TODO add your handling code here:
-        jLabelError.setVisible(false);
+        jLabelError.setText("");
     }//GEN-LAST:event_jTextFieldPrenomAMouseClicked
 
     private void jTextFieldCNEAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldCNEAMouseClicked
         // TODO add your handling code here:
-        jLabelError.setVisible(false);
+        jLabelError.setText("");
     }//GEN-LAST:event_jTextFieldCNEAMouseClicked
 
     private void jTextFieldTelAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldTelAMouseClicked
         // TODO add your handling code here:
-        jLabelError.setVisible(false);
+        jLabelError.setText("");
     }//GEN-LAST:event_jTextFieldTelAMouseClicked
 
     private void jTextFieldNomAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomAActionPerformed
         // TODO add your handling code here:
-        jLabelError.setVisible(false);
+        jLabelError.setText("");
     }//GEN-LAST:event_jTextFieldNomAActionPerformed
-
-    private void jTextFieldDateNaissAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldDateNaissAMouseClicked
-        // TODO add your handling code here:
-        jLabelError.setVisible(false);
-    }//GEN-LAST:event_jTextFieldDateNaissAMouseClicked
 
     private void jTextFieldEmailAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldEmailAMouseClicked
         // TODO add your handling code here:
-        jLabelError.setVisible(false);
+        jLabelError.setText("");
     }//GEN-LAST:event_jTextFieldEmailAMouseClicked
 
     private void jButtonImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImageActionPerformed
         // TODO add your handling code here:
-
         String Path = f.selectImage();
         jLabelImage.setText(Path);
         ImagePath = Path;
     }//GEN-LAST:event_jButtonImageActionPerformed
 
+    public void Vider(){
+  
+        jTextFieldCNEA.setText("");
+        jTextFieldNomA.setText("");
+        jTextFieldPrenomA.setText("");
+        jTextFieldEmailA.setText("");
+        jTextFieldTelA.setText("");
+        jComboBoxSexe.setSelectedItem("Homme");
+        jLabelImage.setText("Choisir une photo de profil....");
+    }
     /**
      * @param args the command line arguments
      */
@@ -471,6 +464,7 @@ public class AjouterAdherent extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonImage;
     private javax.swing.JComboBox<String> jComboBoxSexe;
+    private com.toedter.calendar.JDateChooser jDateChooserDateNaiss;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -486,7 +480,6 @@ public class AjouterAdherent extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextFieldCNEA;
-    private javax.swing.JTextField jTextFieldDateNaissA;
     private javax.swing.JTextField jTextFieldEmailA;
     private javax.swing.JTextField jTextFieldNomA;
     private javax.swing.JTextField jTextFieldPrenomA;
