@@ -170,27 +170,23 @@ public class ListeAuteurs extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabelCloseMouseClicked
     
-    String nomComplet = "";
-    Integer id = 0;
-    
     private void jTableAuteursMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAuteursMouseClicked
         // TODO add your handling code here:
+    }//GEN-LAST:event_jTableAuteursMouseClicked
+    
+    public static int id = -1;
+    private void jButtonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectActionPerformed
+        // TODO add your handling code here:        
         int index = jTableAuteurs.getSelectedRow();
         
         id = Integer.parseInt(jTableAuteurs.getValueAt(index, 0).toString());
         String nom = jTableAuteurs.getValueAt(index, 1).toString();
         String prenom = jTableAuteurs.getValueAt(index, 2).toString();
         
-        nomComplet = nom+" "+prenom;
-        System.err.println(nomComplet);
-    }//GEN-LAST:event_jTableAuteursMouseClicked
-
-    private void jButtonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectActionPerformed
-        // TODO add your handling code here:
-        AjouterLivre livre = new AjouterLivre();
-        livre.RemplirTextFieldAut(id, nomComplet);
+        String nomComplet = nom+" "+prenom;
+        AjouterLivre.RemplirTextFieldAut(id, nomComplet);
+        
         this.setVisible(false);
-        livre.setVisible(true);
     }//GEN-LAST:event_jButtonSelectActionPerformed
 
     public void AfficherGenres(){

@@ -114,19 +114,16 @@
                                               </Group>
                                           </Group>
                                       </Group>
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jLabelImg" min="-2" pref="241" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabelImage" min="-2" pref="198" max="-2" attributes="0"/>
-                                                      <Component id="jButtonImage" alignment="0" min="-2" pref="194" max="-2" attributes="0"/>
-                                                  </Group>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabelImg" min="-2" pref="241" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabelImage" min="-2" pref="198" max="-2" attributes="0"/>
+                                                  <Component id="jButtonImage" alignment="0" min="-2" pref="194" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="jLabelError" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
                                           </Group>
+                                          <Component id="jLabelError" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>

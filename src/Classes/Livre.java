@@ -26,14 +26,14 @@ public class Livre {
     private int nbr_pages;
     private int nbr_exemp;
     private double prix;
-    private Date date_achat;
+    private String date_achat;
     private String desc;
     private byte[] image;
     private int theme;
     private int emprunt;
     private int auteur;
 
-    public Livre(int idL, String isbn, String titre, String langue, int annee, int nbr_pages, int nbr_exemp, double prix, Date date_achat, String desc, byte[] image, int theme, int emprunt, int auteur) {
+    public Livre(int idL, String isbn, String titre, String langue, int annee, int nbr_pages, int nbr_exemp, double prix, String date_achat, String desc, byte[] image, int theme, int emprunt, int auteur) {
         this.idL = idL;
         this.isbn = isbn;
         this.titre = titre;
@@ -85,7 +85,7 @@ public class Livre {
         return prix;
     }
 
-    public Date getDate_achat() {
+    public String getDate_achat() {
         return date_achat;
     }
 
@@ -141,7 +141,7 @@ public class Livre {
         this.prix = prix;
     }
 
-    public void setDate_achat(Date date_achat) {
+    public void setDate_achat(String date_achat) {
         this.date_achat = date_achat;
     }
 
@@ -169,7 +169,7 @@ public class Livre {
     ResultSet rs;
     Fonctions f = new Fonctions();
     
-    public void Ajouter(int idT, String isbn, String titre, String langue, Date annee, int nb_pages, int nb_exmpl, double prix, Date date, String desc, byte[] img){
+    public void Ajouter(int idT, String isbn, String titre, String langue, int annee, int nb_pages, int nb_exmpl, double prix, String date, String desc, byte[] img){
         try {
             String req = "INSERT INTO `livre` (`ID_TH`, `ISBN`, `TITRE`, `LANGUE`, `ANNEE`, `NBR_PAGES`, `NBR_EXEMP`, `PRIX`, `DATE_ACHAT`, `DESCRIPTION`, `IMAGE`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             
@@ -178,11 +178,11 @@ public class Livre {
             ps.setString(2, isbn);                     
             ps.setString(3, titre);            
             ps.setString(4, langue);            
-            ps.setString(5, annee.toString());
+            ps.setInt(5, annee);
             ps.setInt(6, nb_pages);
             ps.setInt(7, nb_exmpl);
             ps.setDouble(8, prix);
-            ps.setString(9, date.toString());
+            ps.setString(9, date);
             ps.setString(10, desc);
             ps.setBytes(11, img);
 
@@ -197,5 +197,22 @@ public class Livre {
             JOptionPane.showMessageDialog(null, "livre n'est pas ajouter", "Attention", 2);
             Logger.getLogger(Livre.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public Livre getLivreById(int idlv) throws SQLException{
+        Livre lv = null;
+
+        String req = "SELECT * FROM `livre` L join `ecrire` E ON L.ID_LIVRE = E.ID_LIVRE WHERE E.ID_LIVRE = '"+idlv+"';";     
+        ResultSet rs = f.getData(req);
+        
+        if(rs != null){
+            
+            while(rs.next()){
+                lv = new Livre(rs.getInt("ID_LIVRE"), rs.getString("ISBN"), rs.getString("TITRE"), rs.getString("LANGUE"), rs.getInt("ANNEE"), rs.getInt("NBR_PAGES"), rs.getInt("NBR_EXEMP"), rs.getDouble("PRIX"), rs.getString("DATE_ACHAT"), rs.getString("DESCRIPTION"), rs.getBytes("IMAGE"), rs.getInt("ID_TH"), rs.getInt("ID_EMPR"), rs.getInt("ID_AUTEUR"));
+            }
+        }else{
+                JOptionPane.showMessageDialog(null, "la liste des livre est vide", "Attention", 2);
+        }
+        return lv;
     }
 }

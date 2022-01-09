@@ -159,7 +159,8 @@ public class Login extends javax.swing.JFrame {
         String pass = jPasswordFieldPass.getText();
 
         String req = "SELECT * FROM users where user = ? and pass = ?";
-        
+                                                    
+        //Uesr
         if(user.trim().equals("") || pass.trim().equals("")){
             JOptionPane.showConfirmDialog(null, "Les champs mot de passe ou nom utilisateur vide", "Attention", 2);
         }

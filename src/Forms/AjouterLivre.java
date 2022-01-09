@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,7 +77,6 @@ public class AjouterLivre extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabelImage = new javax.swing.JLabel();
-        jTextFieldDesc = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jTextFieldPrix = new javax.swing.JTextField();
@@ -96,6 +96,8 @@ public class AjouterLivre extends javax.swing.JFrame {
         jTextFieldAut = new javax.swing.JTextField();
         jButtonIAut = new javax.swing.JButton();
         jButtonImage = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaDesc = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -204,13 +206,6 @@ public class AjouterLivre extends javax.swing.JFrame {
         jLabelImage.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         jLabelImage.setForeground(java.awt.Color.blue);
         jLabelImage.setText("Choisir une photo de profil....");
-
-        jTextFieldDesc.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
-        jTextFieldDesc.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextFieldDescMouseClicked(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabel10.setText("Description :");
@@ -322,6 +317,10 @@ public class AjouterLivre extends javax.swing.JFrame {
             }
         });
 
+        jTextAreaDesc.setColumns(20);
+        jTextAreaDesc.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaDesc);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -370,23 +369,17 @@ public class AjouterLivre extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jTextFieldDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(95, 95, 95)
-                                            .addComponent(jButtonImage, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(95, 95, 95)
+                                        .addComponent(jButtonImage, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(38, 38, 38)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel14)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                                         .addComponent(jComboBoxTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel15)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                                        .addComponent(jTextFieldEmpt, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -395,7 +388,13 @@ public class AjouterLivre extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel13)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel15)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jScrollPane1)
+                                            .addComponent(jTextFieldEmpt, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -421,7 +420,7 @@ public class AjouterLivre extends javax.swing.JFrame {
                         .addComponent(jTextFieldTitre, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel13)
                         .addComponent(jLabel2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldLang, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -443,7 +442,7 @@ public class AjouterLivre extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(jSpinnerNmExmp, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jTextFieldDesc))
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldPrix, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -459,7 +458,7 @@ public class AjouterLivre extends javax.swing.JFrame {
                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(19, 19, 19)
                 .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -478,7 +477,7 @@ public class AjouterLivre extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -496,10 +495,6 @@ public class AjouterLivre extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPrixMouseClicked
 
-    private void jTextFieldDescMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldDescMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDescMouseClicked
-
     private void jButtonImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImageActionPerformed
         // TODO add your handling code here:
         
@@ -514,20 +509,19 @@ public class AjouterLivre extends javax.swing.JFrame {
         String isbn = jTextFieldISBN.getText();
         String titre = jTextFieldTitre.getText();
         String langue = jTextFieldLang.getText();
-        Date annee = Date.valueOf(jTextFieldAnnee.getText());
-        int nb_pages = (int) jSpinnerNmPages.getValue();
-        int nb_exmpl = (int) jSpinnerNmPages.getValue();
-        double prix = Integer.parseInt(jTextFieldPrix.getText());
-                System.err.println(jDateChooserDate.toString());        System.err.println(jDateChooserDate.getDate());
-
-        Date date = Date.valueOf(jDateChooserDate.getDate().toString());
-
-        String desc = jTextFieldDesc.getText();
+        int annee = Integer.parseInt(jTextFieldAnnee.getText());
+        int nb_pages = Integer.parseInt(jSpinnerNmPages.getValue().toString());
+        int nb_exmpl = Integer.parseInt(jSpinnerNmPages.getValue().toString());
+        double prix = Double.parseDouble(jTextFieldPrix.getText());
+   
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(jDateChooserDate.getDate());
         
-        int theme = jComboBoxTheme.getSelectedIndex();
-        int auteur = Integer.parseInt(jTextFieldAut.getText());
+        String desc = jTextAreaDesc.getText();
+        int theme = jComboBoxTheme.getSelectedIndex()+1;
+       // int auteur = Integer.parseInt(jTextFieldAut.getText());
         int emprunt = Integer.parseInt(jTextFieldEmpt.getText());
-
+        
         if(isbn.isEmpty()){
             jLabelError.setVisible(true);
         }
@@ -593,14 +587,14 @@ public class AjouterLivre extends javax.swing.JFrame {
         // TODO add your handling code here:
         ListeAuteurs la = new ListeAuteurs();
         la.setVisible(true);
-        this.setVisible(false);
+        //this.setVisible(false);
     }//GEN-LAST:event_jButtonIAutActionPerformed
 
     private void jTextFieldLangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldLangMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldLangMouseClicked
 
-    public void RemplirTextFieldAut(Integer id, String nomComplet){
+    public static void RemplirTextFieldAut(Integer id, String nomComplet){
         jTextFieldAut.setText(id+"-"+nomComplet);
     }
     
@@ -679,13 +673,14 @@ public class AjouterLivre extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerNmExmp;
     private javax.swing.JSpinner jSpinnerNmPages;
+    private javax.swing.JTextArea jTextAreaDesc;
     private javax.swing.JTextField jTextFieldAnnee;
     public static javax.swing.JTextField jTextFieldAut;
-    private javax.swing.JTextField jTextFieldDesc;
     private javax.swing.JTextField jTextFieldEmpt;
-    private javax.swing.JTextField jTextFieldISBN;
+    public static javax.swing.JTextField jTextFieldISBN;
     private javax.swing.JTextField jTextFieldLang;
     private javax.swing.JTextField jTextFieldPrix;
     private javax.swing.JTextField jTextFieldTitre;

@@ -280,7 +280,7 @@ public class ListeAdherents extends javax.swing.JFrame {
             
             String cne = jTableAdherents.getValueAt(index, 1).toString();
             System.out.println(cne);
-            Adherent a = adh.getAdherentById(cne);
+            Adherent a = adh.getAdherentById(cne, 0);
 
             jLabelCNE.setText(jLabelCNE.getText() + " " + a.getCne());
             jLabelNom.setText(a.getNom());

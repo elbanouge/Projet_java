@@ -192,10 +192,14 @@ public class Adherent {
         }
     }
     
-    public Adherent getAdherentById(String cne) throws SQLException{
+    public Adherent getAdherentById(String cne, int idAhr) throws SQLException{
         Adherent aut = null;
+        String req = "SELECT * FROM `adherent` WHERE CNE_ADHR = '"+cne+"';";
         
-        String req = "SELECT * FROM `adherent` WHERE CNE_ADHR = '"+cne+"';";     
+        if(cne == null){
+            req = "SELECT * FROM `adherent` WHERE ID_ADHR = '"+idAhr+"';";            
+        }
+        
         ResultSet rs = f.getData(req);
         
         if(rs != null){

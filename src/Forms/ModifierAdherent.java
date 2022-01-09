@@ -462,7 +462,7 @@ public class ModifierAdherent extends javax.swing.JFrame {
             // TODO add your handling code here:
             String cneA = jTextFieldCNEA.getText();
             
-            Adherent a = adh.getAdherentById(cneA);
+            Adherent a = adh.getAdherentById(cneA, 0);
             
             jTextFieldNomA.setText(a.getNom());
             jTextFieldPrenomA.setText(a.getPrenom());
