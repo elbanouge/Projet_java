@@ -15,11 +15,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.*;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +41,7 @@ public class EmpruntLivre extends javax.swing.JFrame {
     Livre livre = new Livre();
     Adherent adherent = new Adherent();
     Emprunter emprunter = new Emprunter();
+    
     /**
      * Creates new form Genres
      */
@@ -95,7 +97,7 @@ public class EmpruntLivre extends javax.swing.JFrame {
         jLabelTitre.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
         jLabelTitre.setForeground(new java.awt.Color(103, 111, 163));
         jLabelTitre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitre.setText("Emprunt livre");
+        jLabelTitre.setText("Emprunter un livre");
         jLabelTitre.setOpaque(true);
 
         jLabelClose.setBackground(new java.awt.Color(205, 222, 255));
@@ -115,7 +117,7 @@ public class EmpruntLivre extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabelTitre, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                .addComponent(jLabelTitre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelClose, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7))
@@ -128,7 +130,7 @@ public class EmpruntLivre extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabelClose, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
@@ -182,10 +184,31 @@ public class EmpruntLivre extends javax.swing.JFrame {
         jLabelLvInfo.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabelLvInfo.setForeground(new java.awt.Color(51, 51, 255));
         jLabelLvInfo.setText("Livre informations");
+        jLabelLvInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelLvInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLvInfoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabelLvInfoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabelLvInfoMouseExited(evt);
+            }
+        });
 
         jLabelAdhInfo.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabelAdhInfo.setForeground(new java.awt.Color(51, 51, 255));
         jLabelAdhInfo.setText("Adherent informations");
+        jLabelAdhInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelAdhInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabelAdhInfoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabelAdhInfoMouseExited(evt);
+            }
+        });
 
         jLabelOuiNon.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabelOuiNon.setForeground(new java.awt.Color(51, 51, 255));
@@ -207,56 +230,48 @@ public class EmpruntLivre extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47)
-                        .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel7)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jSpinnerLvID, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jSpinnerAdhID, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(10, 10, 10)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabelLvInfo)
-                                                    .addComponent(jLabelAdhInfo))))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButtonRchLv, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jButtonRchAdh, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabelOuiNon)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel12))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jDateChooserDateRetour, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jDateChooserDateEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel7)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel4))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jSpinnerLvID, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jSpinnerAdhID, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addGap(10, 10, 10)
+                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabelLvInfo)
+                                                        .addComponent(jLabelAdhInfo))))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jButtonRchLv, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jButtonRchAdh, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jLabelOuiNon)
+                                        .addComponent(jDateChooserDateEmp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jLabel12))
+                                    .addGap(74, 74, 74)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jDateChooserDateRetour, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane1)))))))
+                .addContainerGap(19, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,17 +323,11 @@ public class EmpruntLivre extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -334,7 +343,7 @@ public class EmpruntLivre extends javax.swing.JFrame {
             if(l != null){
                 jLabelLvInfo.setText(l.getTitre());
                 
-                if(emprunter.CheckDispoLivre()){
+                if(emprunter.CheckDispoLivre(idLv)){
                     jLabelOuiNon.setText("Oui");
                     jLabelOuiNon.setForeground(Color.green);
                 }else{
@@ -364,7 +373,6 @@ public class EmpruntLivre extends javax.swing.JFrame {
             Adherent a = adherent.getAdherentById(null, idAdh);
             
             if(a != null){
-                
                 jLabelAdhInfo.setText(a.getNom()+" "+a.getPrenom());
             }
             else{
@@ -385,27 +393,58 @@ public class EmpruntLivre extends javax.swing.JFrame {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String dateE = dateFormat.format(jDateChooserDateEmp.getDate());
             String dateR = dateFormat.format(jDateChooserDateRetour.getDate());
-            
             String obser = jTextAreaObser.getText();
-            
-            java.util.Date dE = dateFormat.parse(dateE);
-            java.util.Date dR = dateFormat.parse(dateR);
+            Date dE = dateFormat.parse(dateE);
+            Date dR = dateFormat.parse(dateR);
             
             if(dR.before(dE)){
+                
                 JOptionPane.showMessageDialog(null, "La date de retour doit apres la date d'emprunt !!!!", "Attention", 2); 
+            }else if(jLabelOuiNon.getText().equals("Non")){
+                
+                JOptionPane.showMessageDialog(null, "Ce livre n'est pas disponible !!!!", "Attention", 2); 
             }else{
+                
                 emprunter.Ajouter(idLv, idAdh, "Rendue", dateE, dateR, obser);
             }
             
         } catch (ParseException | NullPointerException  ex) {
             Logger.getLogger(EmpruntLivre.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jLabelCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCloseMouseClicked
         this.dispose();
     }//GEN-LAST:event_jLabelCloseMouseClicked
+
+    private void jLabelLvInfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLvInfoMouseEntered
+        // TODO add your handling code here:
+        f.setBorderToJLabel(new Color(51,51,255), jLabelLvInfo);
+    }//GEN-LAST:event_jLabelLvInfoMouseEntered
+
+    private void jLabelLvInfoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLvInfoMouseExited
+        // TODO add your handling code here:
+        f.setBorderToJLabel(Color.WHITE, jLabelLvInfo);
+    }//GEN-LAST:event_jLabelLvInfoMouseExited
+
+    private void jLabelAdhInfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdhInfoMouseEntered
+        // TODO add your handling code here:
+        f.setBorderToJLabel(new Color(51,51,255), jLabelAdhInfo);
+    }//GEN-LAST:event_jLabelAdhInfoMouseEntered
+
+    private void jLabelAdhInfoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdhInfoMouseExited
+        // TODO add your handling code here:
+        f.setBorderToJLabel(Color.WHITE, jLabelAdhInfo);
+    }//GEN-LAST:event_jLabelAdhInfoMouseExited
+
+    public static int idLv;
+    private void jLabelLvInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLvInfoMouseClicked
+        // TODO add your handling code here:
+        
+        idLv = (int) jSpinnerLvID.getValue();
+        Informations i = new Informations();
+        i.setVisible(true);
+    }//GEN-LAST:event_jLabelLvInfoMouseClicked
 
     /**
      * @param args the command line arguments

@@ -152,7 +152,7 @@
                               <Component id="jScrollPane2" min="-2" pref="69" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jButtonRet" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
                               <Component id="jButtonPerdu" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
                           </Group>
@@ -251,7 +251,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTableLivresEmp">
+            <Component class="javax.swing.JTable" name="jTableEmpLivres">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Cambria" size="12" style="1"/>
@@ -270,14 +270,20 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableLivresEmpMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableEmpLivresMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JSpinner" name="jSpinnerLvID">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="jSpinnerAdhID">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelLvInfo">
           <Properties>
@@ -318,6 +324,9 @@
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserDateEmp">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
@@ -394,7 +403,7 @@
               <StringArray count="4">
                 <StringItem index="0" value="Tout"/>
                 <StringItem index="1" value="Rendue"/>
-                <StringItem index="2" value="Retoune"/>
+                <StringItem index="2" value="Retourne"/>
                 <StringItem index="3" value="Perdu"/>
               </StringArray>
             </Property>

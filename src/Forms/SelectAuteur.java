@@ -34,7 +34,7 @@ public class SelectAuteur extends javax.swing.JFrame {
         f.customTable(jTableAuteurs);
         f.customHeaderTable(jTableAuteurs, new Color(103, 111, 163), 20);
 
-        AfficherGenres();
+        AfficherAuteurs();
     }
 
     /**
@@ -186,10 +186,10 @@ public class SelectAuteur extends javax.swing.JFrame {
         String nomComplet = nom+" "+prenom;
         AjouterLivre.RemplirTextFieldAut(id, nomComplet);
         
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButtonSelectActionPerformed
 
-    public void AfficherGenres(){
+    public void AfficherAuteurs(){
         ArrayList<Auteur> list = aut.Afficher();
         String[] colones = {"ID", "Nom", "Prenom", "Date", "Nat"};
         

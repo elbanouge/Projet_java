@@ -41,7 +41,7 @@ public class Auteurs extends javax.swing.JFrame {
         f.customHeaderTable(jTableAuteurs, new Color(103, 111, 163), 20);
         
         RemplirComboNat();        
-        AfficherGenres();
+        AfficherAuteurs();
     }
 
     /**
@@ -317,7 +317,7 @@ public class Auteurs extends javax.swing.JFrame {
             int idA = Integer.parseInt(jTextFieldID.getText());            
                 
             aut.Supprimer(idA);
-            AfficherGenres();
+            AfficherAuteurs();
           
         }catch(NumberFormatException exception){
             JOptionPane.showMessageDialog(null, "Auteur n'est pas modifie", "Attention", 2);
@@ -341,7 +341,7 @@ public class Auteurs extends javax.swing.JFrame {
         else{
             aut.Ajouter(nomA, prenomA, dateA, natA);
             Vider();
-            AfficherGenres();
+            AfficherAuteurs();
         }
     }//GEN-LAST:event_jButtonAddActionPerformed
 
@@ -364,7 +364,7 @@ public class Auteurs extends javax.swing.JFrame {
                 
                 aut.Modifier(idA, nomA, prenomA, dateA, natA);
                 Vider();
-                AfficherGenres();
+                AfficherAuteurs();
                 
             }catch(NumberFormatException exception){
                 JOptionPane.showMessageDialog(null, "Auteur n'est pas modifie", "Attention", 2);
@@ -408,7 +408,7 @@ public class Auteurs extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNomAActionPerformed
 
-    public void AfficherGenres(){
+    public void AfficherAuteurs(){
         ArrayList<Auteur> list = aut.Afficher();
         String[] colones = {"ID", "Nom", "Prenom", "Date", "Nat"};
         

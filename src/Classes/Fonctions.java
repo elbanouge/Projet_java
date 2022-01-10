@@ -16,8 +16,10 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -71,6 +73,7 @@ public class Fonctions {
             if(rs.next()){
                 total = rs.getInt("total");
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(Fonctions.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -110,6 +113,11 @@ public class Fonctions {
             Path = chooser.getSelectedFile().getAbsolutePath();
         }
         return Path;
+    }
+    
+    public void setBorderToJLabel(Color color, JLabel label){
+        Border border = BorderFactory.createMatteBorder(0, 0, 1, 0, color);
+        label.setBorder(border);
     }
     
 }

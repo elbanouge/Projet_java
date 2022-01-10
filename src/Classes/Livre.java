@@ -5,6 +5,7 @@
 package Classes;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -30,10 +31,9 @@ public class Livre {
     private String desc;
     private byte[] image;
     private int theme;
-    private int emprunt;
     private int auteur;
 
-    public Livre(int idL, String isbn, String titre, String langue, int annee, int nbr_pages, int nbr_exemp, double prix, String date_achat, String desc, byte[] image, int theme, int emprunt, int auteur) {
+    public Livre(int idL, String isbn, String titre, String langue, int annee, int nbr_pages, int nbr_exemp, double prix, String date_achat, String desc, byte[] image, int theme, int auteur) {
         this.idL = idL;
         this.isbn = isbn;
         this.titre = titre;
@@ -46,7 +46,6 @@ public class Livre {
         this.desc = desc;
         this.image = image;
         this.theme = theme;
-        this.emprunt = emprunt;
         this.auteur = auteur;
     }
 
@@ -101,10 +100,6 @@ public class Livre {
         return theme;
     }
 
-    public int getEmprunt() {
-        return emprunt;
-    }
-
     public int getAuteur() {
         return auteur;
     }
@@ -157,10 +152,6 @@ public class Livre {
         this.theme = theme;
     }
 
-    public void setEmprunt(int emprunt) {
-        this.emprunt = emprunt;
-    }
-
     public void setAuteur(int auteur) {
         this.auteur = auteur;
     }
@@ -169,9 +160,11 @@ public class Livre {
     ResultSet rs;
     Fonctions f = new Fonctions();
     
-    public void Ajouter(int idT, String isbn, String titre, String langue, int annee, int nb_pages, int nb_exmpl, double prix, String date, String desc, byte[] img){
+    public void Ajouter(int idT, int idAut, String isbn, String titre, String langue, int annee, int nb_pages, int nb_exmpl, double prix, String date, String desc, byte[] img){
         try {
-            String req = "INSERT INTO `livre` (`ID_TH`, `ISBN`, `TITRE`, `LANGUE`, `ANNEE`, `NBR_PAGES`, `NBR_EXEMP`, `PRIX`, `DATE_ACHAT`, `DESCRIPTION`, `IMAGE`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            String req = "INSERT INTO `livre` (`ID_THEME`, `ISBNLV`, `TITRELV`, `LANGUELV`, `ANNEELV`,"
+                    + " `NBR_PAGESLV`, `NBR_EXEMPLV`, `PRIXLV`, `DATE_ACHATLV`, `DESCLV`,"
+                    + " `IMAGELV`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             
             ps = DB.getConnection().prepareStatement(req);
             ps.setInt(1, idT);               
@@ -185,14 +178,31 @@ public class Livre {
             ps.setString(9, date);
             ps.setString(10, desc);
             ps.setBytes(11, img);
-
             
             if(ps.executeUpdate() == 1){
-                JOptionPane.showMessageDialog(null, "Ajouter livre avec succces", "Ajouter", 1); 
+                
+                Statement st = DB.getConnection().createStatement();
+                ResultSet rs = st.executeQuery("SELECT MAX(ID_LIVRE) AS Last_Livre FROM livre;");
+
+                int lastLv = 0;
+                if(rs.next()){
+                    lastLv = rs.getInt("Last_Livre");
+                    
+                    req = "INSERT INTO `ecrire` (`ID_LIVRE`, `ID_AUTEUR`) VALUES (?, ?);";
+            
+                    ps = DB.getConnection().prepareStatement(req);
+                    ps.setInt(1, lastLv); 
+                    ps.setInt(2, idAut); 
+                    
+                    if(ps.executeUpdate() == 1){
+                        JOptionPane.showMessageDialog(null, "Ajouter livre avec succces", "Ajouter", 1);        
+                    }
+                }                
             }
             else{
                 JOptionPane.showMessageDialog(null, "livre n'est pas ajouter", "Attention", 2);
             }
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "livre n'est pas ajouter", "Attention", 2);
             Logger.getLogger(Livre.class.getName()).log(Level.SEVERE, null, ex);
@@ -208,7 +218,9 @@ public class Livre {
         if(rs != null){
             
             while(rs.next()){
-                lv = new Livre(rs.getInt("ID_LIVRE"), rs.getString("ISBN"), rs.getString("TITRE"), rs.getString("LANGUE"), rs.getInt("ANNEE"), rs.getInt("NBR_PAGES"), rs.getInt("NBR_EXEMP"), rs.getDouble("PRIX"), rs.getString("DATE_ACHAT"), rs.getString("DESCRIPTION"), rs.getBytes("IMAGE"), rs.getInt("ID_TH"), rs.getInt("ID_EMPR"), rs.getInt("ID_AUTEUR"));
+                lv = new Livre(rs.getInt("ID_LIVRE"), rs.getString("ISBNLV"), rs.getString("TITRELV"), rs.getString("LANGUELV"),
+                        rs.getInt("ANNEELV"), rs.getInt("NBR_PAGESLV"), rs.getInt("NBR_EXEMPLV"), rs.getDouble("PRIXLV"),
+                        rs.getString("DATE_ACHATLV"), rs.getString("DESCLV"), rs.getBytes("IMAGELV"), rs.getInt("ID_THEME"), rs.getInt("ID_AUTEUR"));
             }
         }else{
                 JOptionPane.showMessageDialog(null, "la liste des livre est vide", "Attention", 2);

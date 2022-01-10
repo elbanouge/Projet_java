@@ -54,7 +54,7 @@ create table LIVRE
    ISBNLV               varchar(25),
    TITRELV              varchar(25),
    LANGUELV             varchar(25),
-   ANNEELV              date,
+   ANNEELV              int,
    NBR_PAGESLV          int,
    NBR_EXEMPLV          int,
    PRIXLV               decimal,

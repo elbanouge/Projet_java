@@ -86,7 +86,7 @@ public class Auteur {
             ps = DB.getConnection().prepareStatement(req);
             ps.setString(1, nom);            
             ps.setString(2, prenom);            
-            ps.setString(3, date.toString());
+            ps.setString(3, date);
             ps.setString(4, nat);
             
             if(ps.executeUpdate() == 1){
@@ -108,7 +108,7 @@ public class Auteur {
             ps = DB.getConnection().prepareStatement(reqU);
             ps.setString(1, nom);            
             ps.setString(2, prenom);            
-            ps.setString(3, date.toString());
+            ps.setString(3, date);
             ps.setString(4, nat);
             ps.setInt(5, id);
 
@@ -129,7 +129,7 @@ public class Auteur {
     public void Supprimer(int idA) {
         
         try{
-            String reqS = "DELETE FROM `auteur` WHERE  `ID_AUTEUR`=?;";
+            String reqS = "DELETE FROM `auteur` WHERE `ID_AUTEUR`=?;";
         
             ps = DB.getConnection().prepareStatement(reqS);
             ps.setInt(1, idA);

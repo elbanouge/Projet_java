@@ -5,6 +5,7 @@ import Classes.Adherent;
 import Classes.Auteur;
 import Classes.Genre;
 import Classes.Fonctions;
+import Classes.Livre;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,23 +30,21 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author abdel
  */
-public class ListeAdherents extends javax.swing.JFrame {
+public class Informations extends javax.swing.JFrame {
     Fonctions f = new Fonctions();    
-    Adherent adh = new Adherent();
+    Livre l = new Livre();
     
     /**
      * Creates new form Genres
      */
-    public ListeAdherents() {
+    public Informations() {
         initComponents();
         f.DisplayIcon(45, 40, null, "/Images/CloseIcon.png", jLabelClose);
         f.DisplayIcon(jLabelImage.getWidth(), jLabelImage.getHeight(), null, "/Images/user.png", jLabelImage);
         f.DisplayIcon(90, 80, null, "/Images/book.png", jLabelTitre);
         this.setLocationRelativeTo(null);
         
-        f.customTable(jTableAdherents);
-        f.customHeaderTable(jTableAdherents, new Color(103, 111, 163), 20);
-        AfficherAdherents("");
+        DisplayInfoLivre();
     }
 
     /**
@@ -61,17 +60,14 @@ public class ListeAdherents extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabelTitre = new javax.swing.JLabel();
         jLabelClose = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextFieldNomOuPrenom = new javax.swing.JTextField();
-        jButtonRch = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableAdherents = new javax.swing.JTable();
         jLabelImage = new javax.swing.JLabel();
         jLabelNom = new javax.swing.JLabel();
         jLabelPrenom = new javax.swing.JLabel();
         jLabelEmail = new javax.swing.JLabel();
         jLabelDate = new javax.swing.JLabel();
         jLabelCNE = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -85,7 +81,7 @@ public class ListeAdherents extends javax.swing.JFrame {
         jLabelTitre.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jLabelTitre.setForeground(new java.awt.Color(103, 111, 163));
         jLabelTitre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitre.setText("Liste des adherents");
+        jLabelTitre.setText("Informations");
         jLabelTitre.setOpaque(true);
 
         jLabelClose.setBackground(new java.awt.Color(205, 222, 255));
@@ -105,7 +101,7 @@ public class ListeAdherents extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabelTitre, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE)
+                .addComponent(jLabelTitre, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabelClose, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -120,35 +116,6 @@ public class ListeAdherents extends javax.swing.JFrame {
                         .addComponent(jLabelClose, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jLabel4.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jLabel4.setText("Taper le nom ou le prenom de l'adherent :");
-
-        jTextFieldNomOuPrenom.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
-
-        jButtonRch.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jButtonRch.setText("Rechercher");
-        jButtonRch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonRch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRchActionPerformed(evt);
-            }
-        });
-
-        jTableAdherents.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jTableAdherents.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableAdherentsMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTableAdherents);
 
         jLabelImage.setText("jLabel1");
 
@@ -167,71 +134,67 @@ public class ListeAdherents extends javax.swing.JFrame {
         jLabelCNE.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabelCNE.setText("CNE :");
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldNomOuPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelCNE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonRch, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabelNom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelPrenom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                            .addComponent(jLabelCNE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabelNom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelPrenom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelCNE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonRch, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(jTextFieldNomOuPrenom, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(jLabel4))
+                .addComponent(jLabelNom)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelCNE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelNom)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelPrenom)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelDate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelEmail)))
-                .addContainerGap())
+                .addComponent(jLabelPrenom)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelDate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelEmail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -241,67 +204,23 @@ public class ListeAdherents extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabelCloseMouseClicked
 
-    private void jButtonRchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRchActionPerformed
+    public void DisplayInfoLivre(){
         try {
-            // TODO add your handling code here:
-            String text = jTextFieldNomOuPrenom.getText();
-            String req = "SELECT * FROM `adherent` WHERE `NOMADHR` like '%"+text+"%' OR `PRENOMADHR` like '%"+text+"%';";
-            AfficherAdherents(req);
             
-        } catch (NumberFormatException ex) {
-            Logger.getLogger(ListeAdherents.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButtonRchActionPerformed
-
-    private void jTableAdherentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAdherentsMouseClicked
-        try {
-            // TODO add your handling code here:
-            int index = jTableAdherents.getSelectedRow();
+            Livre livre =  l.getLivreById(EmpruntLivre.idLv);
             
-            String cne = jTableAdherents.getValueAt(index, 1).toString();
-            Adherent a = adh.getAdherentById(cne, 0);
-
-            jLabelCNE.setText("CNE : " + a.getCne());
-            jLabelNom.setText("Nom : " + a.getNom());
-            jLabelPrenom.setText("Prenom : " + a.getPrenom());
-            jLabelDate.setText("Date : " + a.getDateNaiss());
-            jLabelEmail.setText("Email : " + a.getEmail());
+            jLabelCNE.setText("ISBN : " + livre.getIsbn());
+            jLabelNom.setText("Langue : " + livre.getLangue());
+            jLabelPrenom.setText("Titre : " + livre.getTitre());
+            jLabelDate.setText("Annne : " + livre.getAnnee());
+            jLabelEmail.setText("Nombre exemplaire : " + livre.getNbr_exemp());
             
-            byte[] bs = a.getImage();
-            f.DisplayIcon(jLabelImage.getWidth(), jLabelImage.getHeight(), bs, "", jLabelImage);            
-            
+            byte[] bs = livre.getImage();
+            f.DisplayIcon(jLabelImage.getWidth(), jLabelImage.getHeight(), bs, "", jLabelImage);  
+        
         } catch (SQLException ex) {
-            Logger.getLogger(ListeAdherents.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Informations.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jTableAdherentsMouseClicked
-
-    public void AfficherAdherents(String req){
-        
-        ArrayList<Adherent> list = adh.Afficher(req);
-        String[] colones = {"ID", "CNE", "Nom", "Prenom", "Date", "Email", "Tel", "Sexe"};
-        
-        Object[][] lignes = new Object[list.size()][colones.length];
-        
-        for(int i = 0; i<list.size(); i++){
-            String sexe = "Femme";
-
-            lignes[i][0] = list.get(i).getId();
-            lignes[i][1] = list.get(i).getCne();
-            lignes[i][2] = list.get(i).getNom();
-            lignes[i][3] = list.get(i).getPrenom();
-            lignes[i][4] = list.get(i).getDateNaiss();
-            lignes[i][5] = list.get(i).getEmail();
-            lignes[i][6] = list.get(i).getTel();
-            
-            if(list.get(i).getSexe() == 1){
-                sexe = "Homme";
-            }
-
-            lignes[i][7] = sexe;
-        }
-        
-        DefaultTableModel model = new DefaultTableModel(lignes, colones);
-        jTableAdherents.setModel(model);
     }
     /**
      * @param args the command line arguments
@@ -321,14 +240,46 @@ public class ListeAdherents extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListeAdherents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Informations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListeAdherents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Informations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListeAdherents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Informations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListeAdherents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Informations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -365,14 +316,12 @@ public class ListeAdherents extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListeAdherents().setVisible(true);
+                new Informations().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonRch;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelCNE;
     private javax.swing.JLabel jLabelClose;
     private javax.swing.JLabel jLabelDate;
@@ -384,7 +333,6 @@ public class ListeAdherents extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableAdherents;
-    private javax.swing.JTextField jTextFieldNomOuPrenom;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

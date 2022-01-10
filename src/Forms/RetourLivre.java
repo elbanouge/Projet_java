@@ -7,10 +7,10 @@ import Classes.Genre;
 import Classes.Fonctions;
 import java.awt.Color;
 import java.awt.Font;
-import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -36,8 +36,8 @@ public class RetourLivre extends javax.swing.JFrame {
         f.DisplayIcon(90, 80, null, "/Images/book.png", jLabelTitre);
         this.setLocationRelativeTo(null);
         
-        f.customTable(jTableLivresEmp);
-        f.customHeaderTable(jTableLivresEmp, new Color(103, 111, 163), 20);
+        f.customTable(jTableEmpLivres);
+        f.customHeaderTable(jTableEmpLivres, new Color(103, 111, 163), 20);
         
         AfficherLivreEmp("");
     }
@@ -56,7 +56,7 @@ public class RetourLivre extends javax.swing.JFrame {
         jLabelTitre = new javax.swing.JLabel();
         jLabelClose = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableLivresEmp = new javax.swing.JTable();
+        jTableEmpLivres = new javax.swing.JTable();
         jSpinnerLvID = new javax.swing.JSpinner();
         jSpinnerAdhID = new javax.swing.JSpinner();
         jLabelLvInfo = new javax.swing.JLabel();
@@ -124,8 +124,8 @@ public class RetourLivre extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTableLivresEmp.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
-        jTableLivresEmp.setModel(new javax.swing.table.DefaultTableModel(
+        jTableEmpLivres.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
+        jTableEmpLivres.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -133,13 +133,17 @@ public class RetourLivre extends javax.swing.JFrame {
 
             }
         ));
-        jTableLivresEmp.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTableLivresEmp.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableEmpLivres.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTableEmpLivres.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableLivresEmpMouseClicked(evt);
+                jTableEmpLivresMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableLivresEmp);
+        jScrollPane1.setViewportView(jTableEmpLivres);
+
+        jSpinnerLvID.setEnabled(false);
+
+        jSpinnerAdhID.setEnabled(false);
 
         jLabelLvInfo.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabelLvInfo.setForeground(new java.awt.Color(51, 51, 255));
@@ -154,6 +158,8 @@ public class RetourLivre extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabel4.setText("Taper l'id de livre  :");
+
+        jDateChooserDateEmp.setEnabled(false);
 
         jLabel13.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabel13.setText("Date d'émission :");
@@ -186,7 +192,7 @@ public class RetourLivre extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tout", "Rendue", "Retoune", "Perdu" }));
+        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tout", "Rendue", "Retourne", "Perdu" }));
         jComboBoxStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxStatusActionPerformed(evt);
@@ -288,7 +294,7 @@ public class RetourLivre extends javax.swing.JFrame {
                             .addComponent(jLabel12)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonRet, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonPerdu, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -320,17 +326,17 @@ public class RetourLivre extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabelCloseMouseClicked
 
-    private void jTableLivresEmpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLivresEmpMouseClicked
+    private void jTableEmpLivresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEmpLivresMouseClicked
         try {
             // TODO add your handling code here:
-            int index = jTableLivresEmp.getSelectedRow();
+            int index = jTableEmpLivres.getSelectedRow();
             
-            int idLv = Integer.parseInt(jTableLivresEmp.getValueAt(index, 0).toString());
-            int idAdh = Integer.parseInt(jTableLivresEmp.getValueAt(index, 1).toString());
-            String dateE = jTableLivresEmp.getValueAt(index, 2).toString();
-            String dateR = jTableLivresEmp.getValueAt(index, 3).toString();
-            String statut = jTableLivresEmp.getValueAt(index, 4).toString();
-            String obser = jTableLivresEmp.getValueAt(index, 5).toString();
+            int idLv = Integer.parseInt(jTableEmpLivres.getValueAt(index, 1).toString());
+            int idAdh = Integer.parseInt(jTableEmpLivres.getValueAt(index, 2).toString());
+            String dateE = jTableEmpLivres.getValueAt(index, 3).toString();
+            String dateR = jTableEmpLivres.getValueAt(index, 4).toString();
+            String statut = jTableEmpLivres.getValueAt(index, 5).toString();
+            String obser = jTableEmpLivres.getValueAt(index, 6).toString();
             
             jSpinnerLvID.setValue(idLv);
             jSpinnerAdhID.setValue(idAdh);
@@ -344,14 +350,85 @@ public class RetourLivre extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(RetourLivre.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jTableLivresEmpMouseClicked
+    }//GEN-LAST:event_jTableEmpLivresMouseClicked
 
     private void jButtonRetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetActionPerformed
             // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:            
+            int idLv = (int) jSpinnerLvID.getValue();
+            int idAdh = (int) jSpinnerAdhID.getValue();
+            
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String dateE = dateFormat.format(jDateChooserDateEmp.getDate());
+            String dateR = dateFormat.format(jDateChooserDateRetour.getDate());
+            
+            Date dE = dateFormat.parse(dateE);
+            Date dR = dateFormat.parse(dateR);
+                
+            if(dE != null || dR != null){
+                int index = jTableEmpLivres.getSelectedRow();
+                int idEmp = 0;
+                
+                String obser = jTextAreaObser.getText();
+
+                if(dR.before(dE)){    
+
+                    JOptionPane.showMessageDialog(null, "La date de retour doit apres la date d'emprunt !!!!", "Attention", 2); 
+                }else if(index == -1){    
+                    JOptionPane.showMessageDialog(null, "Vous pouvez selectionne d'abord un ligne !!!!", "Attention", 2); 
+                }else{
+                    idEmp = Integer.parseInt(jTableEmpLivres.getValueAt(index, 0).toString());
+                    emprunter.Modifier(idEmp, idLv, idAdh, "Retourne", dateE, dateR, obser);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Vous pouvez selectionne d'abord un ligne !!!!", "Attention", 2); 
+            }
+            
+        } catch (ParseException | NullPointerException  ex) {
+            JOptionPane.showMessageDialog(null, "Vous pouvez selectionne d'abord un ligne !!!!", "Attention", 2); 
+            Logger.getLogger(EmpruntLivre.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonRetActionPerformed
 
     private void jButtonPerduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPerduActionPerformed
         // TODO add your handling code here:
+        
+         try {
+            // TODO add your handling code here:            
+            int idLv = (int) jSpinnerLvID.getValue();
+            int idAdh = (int) jSpinnerAdhID.getValue();
+            
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String dateE = dateFormat.format(jDateChooserDateEmp.getDate());
+            String dateR = dateFormat.format(jDateChooserDateRetour.getDate());
+            
+            Date dE = dateFormat.parse(dateE);
+            Date dR = dateFormat.parse(dateR);
+                
+            if(dE != null || dR != null){
+                int index = jTableEmpLivres.getSelectedRow();
+                int idEmp = 0;
+                
+                String obser = jTextAreaObser.getText();
+
+                if(dR.before(dE)){    
+
+                    JOptionPane.showMessageDialog(null, "La date de retour doit apres la date d'emprunt !!!!", "Attention", 2); 
+                }else if(index == -1){    
+                    JOptionPane.showMessageDialog(null, "Vous pouvez selectionne d'abord un ligne !!!!", "Attention", 2); 
+                }else{
+                    idEmp = Integer.parseInt(jTableEmpLivres.getValueAt(index, 0).toString());
+                    emprunter.Modifier(idEmp, idLv, idAdh, "Perdu", dateE, dateR, obser);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Vous pouvez selectionne d'abord un ligne !!!!", "Attention", 2); 
+            }
+            
+        } catch (ParseException | NullPointerException  ex) {
+            JOptionPane.showMessageDialog(null, "Vous pouvez selectionne d'abord un ligne !!!!", "Attention", 2); 
+            Logger.getLogger(EmpruntLivre.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonPerduActionPerformed
 
     private void jComboBoxStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxStatusActionPerformed
@@ -367,26 +444,45 @@ public class RetourLivre extends javax.swing.JFrame {
 
     private void jButtonSuppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuppActionPerformed
         // TODO add your handling code here:
+        try{
+            
+            int index = jTableEmpLivres.getSelectedRow();
+
+            int confirm = JOptionPane.showConfirmDialog(null, "Vous voullez supprime ce emprunt d'un livre");
+            
+            if(confirm == JOptionPane.YES_OPTION && index != -1){
+                int idEmp = Integer.parseInt(jTableEmpLivres.getValueAt(index, 0).toString());
+        
+                emprunter.Supprimer(idEmp);
+                AfficherLivreEmp("");
+            }else{
+                JOptionPane.showMessageDialog(null, "Emprunt livre n'est pas supprime", "Attention", 2);
+            }
+          
+        }catch(NumberFormatException exception){
+            JOptionPane.showMessageDialog(null, "Emprunt livre n'est pas supprime", "Attention", 2);
+        }  
     }//GEN-LAST:event_jButtonSuppActionPerformed
 
     public void AfficherLivreEmp(String stat){
         
         ArrayList<Emprunter> list = emprunter.Afficher(stat);
-        String[] colones = {"ID Livre", "ID Adherent", "Date Empeunt", "Date Retour", "Statut", "Observation"};
+        String[] colones = {"ID Emprunt", "ID Livre", "ID Adherent", "Date Empeunt", "Date Retour", "Statut", "Observation"};
         
         Object[][] lignes = new Object[list.size()][colones.length];
         
         for(int i = 0; i<list.size(); i++){
-            lignes[i][0] = list.get(i).getIdLv();            
-            lignes[i][1] = list.get(i).getIdAdh();
-            lignes[i][2] = list.get(i).getRetour();
-            lignes[i][3] = list.get(i).getDateE();
-            lignes[i][4] = list.get(i).getDateR();
-            lignes[i][5] = list.get(i).getObser();
+            lignes[i][0] = list.get(i).getIdEmp();            
+            lignes[i][1] = list.get(i).getIdLv();            
+            lignes[i][2] = list.get(i).getIdAdh();
+            lignes[i][3] = list.get(i).getRetour();
+            lignes[i][4] = list.get(i).getDateE();
+            lignes[i][5] = list.get(i).getDateR();
+            lignes[i][6] = list.get(i).getObser();
         }
         
         DefaultTableModel model = new DefaultTableModel(lignes, colones);
-        jTableLivresEmp.setModel(model);
+        jTableEmpLivres.setModel(model);
     }
     /**
      * @param args the command line arguments
@@ -450,7 +546,7 @@ public class RetourLivre extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinnerAdhID;
     private javax.swing.JSpinner jSpinnerLvID;
-    private javax.swing.JTable jTableLivresEmp;
+    private javax.swing.JTable jTableEmpLivres;
     private javax.swing.JTextArea jTextAreaObser;
     // End of variables declaration//GEN-END:variables
 }

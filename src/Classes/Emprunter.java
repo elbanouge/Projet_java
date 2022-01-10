@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
  * @author abdel
  */
 public class Emprunter {
+    private int idEmp;
     private int idLv;
     private int idAdh;
     private String retour;
@@ -25,7 +26,8 @@ public class Emprunter {
     private String dateR;
     private String obser;
 
-    public Emprunter(int idLv, int idAdh, String retour, String dateE, String dateR, String obser) {
+    public Emprunter(int idEmp, int idLv, int idAdh, String retour, String dateE, String dateR, String obser) {
+        this.idEmp = idEmp;
         this.idLv = idLv;
         this.idAdh = idAdh;
         this.retour = retour;
@@ -35,6 +37,10 @@ public class Emprunter {
     }
 
     public Emprunter() {
+    }
+
+    public int getIdEmp() {
+        return idEmp;
     }
 
     public int getIdLv() {
@@ -59,6 +65,10 @@ public class Emprunter {
 
     public String getObser() {
         return obser;
+    }
+
+    public void setIdEmp(int idEmp) {
+        this.idEmp = idEmp;
     }
 
     public void setIdLv(int idLv) {
@@ -86,6 +96,7 @@ public class Emprunter {
     }
         
     PreparedStatement ps;
+    Statement st;
     ResultSet rs;
     Fonctions f = new Fonctions();
     Livre l = new Livre();
@@ -93,7 +104,7 @@ public class Emprunter {
     public void Ajouter(int idLv, int idAdh, String retour, String dateE, String dateR, String obser){
     
         try {
-            String req = "INSERT INTO `gestionbiblio`.`emprunt` (`ID_LIVRE`, `ID_ADHR`, `DATE_DEBUT`, `DATE_FIN`, `RENDUE`, `NOTE`) VALUES (?, ?, ?, ?, ?, ?);";
+            String req = "INSERT INTO `gestionbiblio`.`emprunt` (`ID_LIVRE`, `ID_ADHERENT`, `DATEDEBUTEMP`, `DATEFINEMP`, `STATUTSEMP`, `OBSERVEMP`) VALUES (?, ?, ?, ?, ?, ?);";
             
             ps = DB.getConnection().prepareStatement(req);
             ps.setInt(1, idLv);               
@@ -111,25 +122,69 @@ public class Emprunter {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Emprunt livre n'est pas ajouter", "Attention", 2);
-            Logger.getLogger(Livre.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Emprunter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public boolean CheckDispoLivre(){
+    public void Modifier(int idEmp, int idLv, int idAdh, String retour, String dateE, String dateR, String obser)
+    {
+        try {
+            String req = "UPDATE `gestionbiblio`.`emprunt` SET `ID_LIVRE`=?, `ID_ADHERENT`=?, `DATEDEBUTEMP`=?,"
+                    + " `DATEFINEMP`=?, `STATUTSEMP`=?, `OBSERVEMP`=? WHERE  `ID_EMPRUNT`=?;";
+            
+            ps = DB.getConnection().prepareStatement(req);
+            ps.setInt(1, idLv);               
+            ps.setInt(2, idAdh);                     
+            ps.setString(3, dateE);            
+            ps.setString(4, dateR);            
+            ps.setString(5, retour);            
+            ps.setString(6, obser);
+            ps.setInt(7, idEmp);
+            
+            if(ps.executeUpdate() == 1){
+                JOptionPane.showMessageDialog(null, "Modifier emprunte avec succces", "Modifier", 1); 
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Emprunt livre n'est pas modifier", "Attention", 2);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Emprunt livre n'est pas modifier", "Attention", 2);
+            Logger.getLogger(Emprunter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void Supprimer(int idEmp) {
+        
+        try{
+            String reqS = "DELETE FROM `emprunt` WHERE  `ID_EMPRUNT`=?;";
+        
+            ps = DB.getConnection().prepareStatement(reqS);
+            ps.setInt(1, idEmp);
+            
+            if(ps.executeUpdate() != 0){
+                JOptionPane.showMessageDialog(null, "Supprime emprunt avec succces", "Supprimer", 1);
+            }else{
+                JOptionPane.showMessageDialog(null, "Emprunt livre n'est pas supprime", "Attention", 2);
+            }
+        }catch(SQLException exception){
+            JOptionPane.showMessageDialog(null, "Emprunt livre n'est pas supprime", "Attention", 2);
+            Logger.getLogger(Emprunter.class.getName()).log(Level.SEVERE, null, exception);
+        }
+    }
+    
+    public boolean CheckDispoLivre(int idLv){
         boolean b = false;
         
         try {
             
             Livre livre = l.getLivreById(idLv);
-            int qty = l.getNbr_exemp();
+            int qty = livre.getNbr_exemp();
             int qtyEmp = countData(idLv);
             
             if(qty > qtyEmp){
-                
                 b = true;
-            }
-            else{
-                
+             }
+            else{                
                 b = false;
             }
             
@@ -144,16 +199,15 @@ public class Emprunter {
         int total = 0;
  
         try {            
-            String req = "SELECT Count(*) as total from `emprunt` WHERE ID_LIVRE = ? AND RENDUE = 'rendue'";
+            String req = "SELECT Count(*) as total from `emprunt` E WHERE E.ID_LIVRE = '"+idLv+"' AND E.STATUTSEMP = 'rendue';";
             
-            ps = DB.getConnection().prepareStatement(req);
-            ps.setInt(1, idLv);
-            
-            rs = ps.executeQuery(req);
+            st = DB.getConnection().createStatement();
+            rs = st.executeQuery(req);
            
             if(rs.next()){
                 total = rs.getInt("total");
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(Emprunter.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -170,7 +224,7 @@ public class Emprunter {
             if(status.equals("")){
                 req = "SELECT * FROM `emprunt`;";
             }else{                
-                req = "SELECT * FROM `emprunt` WHERE RENDUE = '"+status+"';";
+                req = "SELECT * FROM `emprunt` WHERE STATUTSEMP = '"+status+"';";
             }
 
             rs = f.getData(req);
@@ -178,7 +232,8 @@ public class Emprunter {
             if(rs != null){
 
                 while(rs.next()){
-                    Emprunter e = new Emprunter(rs.getInt("ID_LIVRE"), rs.getInt("ID_ADHR"), rs.getString("DATE_DEBUT"), rs.getString("DATE_FIN"), rs.getString("RENDUE"), rs.getString("NOTE"));
+                    Emprunter e = new Emprunter(rs.getInt("ID_EMPRUNT"), rs.getInt("ID_LIVRE"), rs.getInt("ID_ADHERENT"),
+                            rs.getString("DATEDEBUTEMP"), rs.getString("DATEFINEMP"), rs.getString("STATUTSEMP"), rs.getString("OBSERVEMP"));
                     list.add(e);
                 }
             }else{
