@@ -338,7 +338,7 @@ public class EmpruntLivre extends javax.swing.JFrame {
 
         try {
             // TODO add your handling code here:     
-            Livre l = livre.getLivreById(idLv);
+            Livre l = livre.getLivreById(idLv, null);
             
             if(l != null){
                 jLabelLvInfo.setText(l.getTitre());

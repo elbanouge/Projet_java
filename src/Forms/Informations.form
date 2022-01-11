@@ -59,25 +59,20 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="369" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jLabelCNE" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabelNom" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabelPrenom" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabelDate" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabelEmail" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelCNE" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabelImage" min="-2" pref="135" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="jLabelNom" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabelPrenom" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabelDate" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabelEmail" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="369" max="-2" attributes="0"/>
+                              <Component id="jLabelImage" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

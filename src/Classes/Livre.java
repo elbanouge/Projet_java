@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -183,8 +183,8 @@ public class Livre {
             
             if(ps.executeUpdate() == 1){
                 
-                Statement st = DB.getConnection().createStatement();
-                ResultSet rs = st.executeQuery("SELECT MAX(ID_LIVRE) AS Last_Livre FROM livre;");
+                st = DB.getConnection().createStatement();
+                rs = st.executeQuery("SELECT MAX(ID_LIVRE) AS Last_Livre FROM livre;");
 
                 int lastLv = 0;
                 if(rs.next()){
@@ -210,12 +210,57 @@ public class Livre {
             Logger.getLogger(Livre.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public Livre getLivreById(int idlv) throws SQLException{
-        Livre lv = null;
 
-        String req = "SELECT * FROM `livre` L join `ecrire` E ON L.ID_LIVRE = E.ID_LIVRE WHERE E.ID_LIVRE = '"+idlv+"';";     
-        ResultSet rs = f.getData(req);
+    public void Modifier(int idLv, String isbn, int idAut, int idTh, String titre, String langue, int annee, int nb_pages, int nb_exmpl, double prix, String date, String desc, byte[] img){
+  
+        try {
+        
+            String req = "UPDATE livre L JOIN ecrire E ON L.ID_LIVRE = E.ID_LIVRE "
+                    + "SET L.ID_THEME=?, L.TITRELV=?, L.LANGUELV=?, L.ANNEELV=?,"
+                    + " L.NBR_PAGESLV=?, L.NBR_EXEMPLV=?, L.PRIXLV=?,L.DATE_ACHATLV=?,"
+                    + " L.DESCLV=?, L.IMAGELV=?, E.ID_AUTEUR=? "
+                    + "WHERE  L.ID_LIVRE=? OR L.ISBNLV=?;";
+            
+            ps = DB.getConnection().prepareStatement(req);
+            ps.setInt(1, idTh);               
+            ps.setString(2, titre);            
+            ps.setString(3, langue);            
+            ps.setInt(4, annee);
+            ps.setInt(5, nb_pages);
+            ps.setInt(6, nb_exmpl);
+            ps.setDouble(7, prix);
+            ps.setString(8, date);
+            ps.setString(9, desc);
+            ps.setBytes(10, img);
+            ps.setInt(11, idAut);
+
+            ps.setInt(12, idLv);               
+            ps.setString(13, isbn);               
+
+            System.out.println(ps.executeUpdate());
+            
+            if(ps.executeUpdate() >= 1){
+                JOptionPane.showMessageDialog(null, "Modifier livre avec succces", "Ajouter", 1);        
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "livre n'est pas modifie", "Attention", 2);
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "livre n'est pas modifie", "Attention", 2);
+            Logger.getLogger(Livre.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public Livre getLivreById(int idlv, String isbn) throws SQLException{
+        Livre lv = null;
+        String req = "SELECT * FROM `livre` L join `ecrire` E ON L.ID_LIVRE = E.ID_LIVRE WHERE E.ID_LIVRE = '"+idlv+"'";
+        
+        if(isbn != null){
+            req = "SELECT * FROM `livre` L join `ecrire` E ON L.ID_LIVRE = E.ID_LIVRE WHERE E.ID_LIVRE = '"+idlv+"' or ISBNLV = "+isbn+";";     
+        }
+        
+        rs = f.getData(req);
         
         if(rs != null){
             
@@ -233,16 +278,17 @@ public class Livre {
     
     
     public void DisplayLivreCover(JLabel[] labels) {
- 
+        
         try {            
-            String req = "SELECT `IMAGELV` FROM `gestionbiblio`.`livre` LIMIT 4;";
+            String req = "SELECT `IMAGELV` FROM `gestionbiblio`.`livre` ORDER BY `ID_LIVRE` DESC LIMIT 4;";
             
             st = DB.getConnection().createStatement();
             rs = st.executeQuery(req);
    
             byte[] img;
             int i = 0;
-            if(rs.next()){
+            
+            while(rs.next()){
                 img = rs.getBytes("IMAGELV");
                 f.DisplayIcon(labels[i].getWidth(), labels[i].getHeight(), img, titre, labels[i]);
                 i++;
@@ -251,5 +297,36 @@ public class Livre {
         } catch (SQLException ex) {
             Logger.getLogger(Livre.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public ArrayList<Livre> Afficher(String req){
+        ArrayList<Livre> list = new ArrayList<>();
+        String r = "SELECT * FROM `livre` L join `ecrire` E ON L.ID_LIVRE = E.ID_LIVRE;";            
+
+        try {
+
+            if(req.equals("")){
+                rs = f.getData(r);
+            }else{
+                rs = f.getData(req);
+            }
+            
+            if(rs != null){
+
+                while(rs.next()){
+                    Livre lv = new Livre(rs.getInt("ID_LIVRE"), rs.getString("ISBNLV"), rs.getString("TITRELV"), rs.getString("LANGUELV"),
+                        rs.getInt("ANNEELV"), rs.getInt("NBR_PAGESLV"), rs.getInt("NBR_EXEMPLV"), rs.getDouble("PRIXLV"),
+                        rs.getString("DATE_ACHATLV"), rs.getString("DESCLV"), rs.getBytes("IMAGELV"), rs.getInt("ID_THEME"), rs.getInt("ID_AUTEUR"));
+                    list.add(lv);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "la liste des livres est vide", "Attention", 2);
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "la liste des livres est vide", "Attention", 2);
+            Logger.getLogger(Adherent.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 }

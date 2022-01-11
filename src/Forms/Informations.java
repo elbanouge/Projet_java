@@ -207,7 +207,7 @@ public class Informations extends javax.swing.JFrame {
     public void DisplayInfoLivre(){
         try {
             
-            Livre livre =  l.getLivreById(EmpruntLivre.idLv);
+            Livre livre =  l.getLivreById(EmpruntLivre.idLv, null);
             
             jLabelCNE.setText("ISBN : " + livre.getIsbn());
             jLabelNom.setText("Langue : " + livre.getLangue());

@@ -22,6 +22,8 @@ public class SelectAuteur extends javax.swing.JFrame {
     Fonctions f = new Fonctions();    
     Auteur aut = new Auteur();
 
+    public static String typeFr = "";
+    
     /**
      * Creates new form Genres
      */
@@ -182,9 +184,13 @@ public class SelectAuteur extends javax.swing.JFrame {
         id = Integer.parseInt(jTableAuteurs.getValueAt(index, 0).toString());
         String nom = jTableAuteurs.getValueAt(index, 1).toString();
         String prenom = jTableAuteurs.getValueAt(index, 2).toString();
-        
         String nomComplet = nom+" "+prenom;
-        AjouterLivre.RemplirTextFieldAut(id, nomComplet);
+
+        if(typeFr.equals("ajouter")){
+            AjouterLivre.RemplirTextFieldAut(id, nomComplet);
+        }else if(typeFr.equals("modifier")){
+            ModifierLivre.RemplirTextFieldAut(id, nomComplet);
+        }
         
         this.dispose();
     }//GEN-LAST:event_jButtonSelectActionPerformed

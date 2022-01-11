@@ -110,30 +110,24 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
+                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelLv" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jButtonGes_Genres" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButtonGesAut" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jButtonAjAdh" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButtonModAdh" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButtonListeLvs" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jButtonListeAdhr" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButtonAjLv" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButtonModLv" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jButtonGesEmp" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
@@ -142,15 +136,6 @@
                                   <Component id="jButtonRLv" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabelLv" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -329,7 +314,7 @@
             <Component class="javax.swing.JButton" name="jButtonGes_Genres">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Gestion genres"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -344,7 +329,7 @@
             <Component class="javax.swing.JButton" name="jButtonGesAut">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Gestion auteurs"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -359,7 +344,7 @@
             <Component class="javax.swing.JButton" name="jButtonAjAdh">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Ajouter"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -374,7 +359,7 @@
             <Component class="javax.swing.JButton" name="jButtonModAdh">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Modifier"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -389,7 +374,7 @@
             <Component class="javax.swing.JButton" name="jButtonListeAdhr">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Liste des adherents"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -404,7 +389,7 @@
             <Component class="javax.swing.JButton" name="jButtonAjLv">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Ajouter"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -419,7 +404,7 @@
             <Component class="javax.swing.JButton" name="jButtonModLv">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Modifier"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -434,7 +419,7 @@
             <Component class="javax.swing.JButton" name="jButtonListeLvs">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Liste des livres"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -449,7 +434,7 @@
             <Component class="javax.swing.JButton" name="jButtonRLv">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Rendue livre"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -464,7 +449,7 @@
             <Component class="javax.swing.JButton" name="jButtonGesEmp">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Gestion emprunts"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -778,13 +763,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanelStat4_Header" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabelImg2" pref="332" max="32767" attributes="0"/>
-                          <Component id="jLabelImg1" pref="332" max="32767" attributes="0"/>
-                          <Component id="jLabelImg4" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabelImg3" alignment="1" pref="332" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jLabelImg3" alignment="0" pref="315" max="32767" attributes="0"/>
+                          <Component id="jLabelImg2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jLabelImg1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jLabelImg4" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="30" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -804,15 +789,23 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel7" min="-2" pref="571" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jLabelAcc" min="-2" pref="48" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel7" min="-2" pref="38" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel7" min="-2" pref="38" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="jLabelAcc" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -829,6 +822,16 @@
                     <Property name="text" type="java.lang.String" value="Les derniers livres qui on a ajouter"/>
                   </Properties>
                 </Component>
+                <Component class="javax.swing.JLabel" name="jLabelAcc">
+                  <Properties>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Hand Cursor"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelAccMouseClicked"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
             <Component class="javax.swing.JLabel" name="jLabelImg1">
@@ -841,6 +844,7 @@
                     <LineBorder/>
                   </Border>
                 </Property>
+                <Property name="name" type="java.lang.String" value="jLabelImg1" noResource="true"/>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
@@ -854,6 +858,7 @@
                     <LineBorder/>
                   </Border>
                 </Property>
+                <Property name="name" type="java.lang.String" value="jLabelImg2" noResource="true"/>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
@@ -867,6 +872,7 @@
                     <LineBorder/>
                   </Border>
                 </Property>
+                <Property name="name" type="java.lang.String" value="jLabelImg3" noResource="true"/>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
@@ -880,6 +886,7 @@
                     <LineBorder/>
                   </Border>
                 </Property>
+                <Property name="name" type="java.lang.String" value="jLabelImg4" noResource="true"/>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>

@@ -572,6 +572,7 @@ public class AjouterLivre extends javax.swing.JFrame {
 
     private void jButtonIAutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIAutActionPerformed
         // TODO add your handling code here:
+        SelectAuteur.typeFr = "ajouter";
         SelectAuteur la = new SelectAuteur();
         la.setVisible(true);
     }//GEN-LAST:event_jButtonIAutActionPerformed

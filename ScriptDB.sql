@@ -7,106 +7,99 @@
 /*==============================================================*/
 /* Table : ADHERENT                                             */
 /*==============================================================*/
-create table ADHERENT
+CREATE TABLE ADHERENT
 (
-   ID_ADHERENT          int not NULL AUTO_INCREMENT,
-   CNEADHR              varchar(25),
-   NOMADHR              varchar(25),
-   PRENOMADHR           varchar(25),
-   DATENAISSADHR        date,
-   EMAILADHR            varchar(25),
-   TELADHR              varchar(25),
-   SEXEADHR             bool,
-   IMAGEADHR            longblob,
-   primary key (ID_ADHERENT)
+ ID_ADHERENT INT NOT NULL AUTO_INCREMENT,
+ CNEADHR VARCHAR(25),
+ NOMADHR VARCHAR(25),
+ PRENOMADHR VARCHAR(25),
+ DATENAISSADHR DATE,
+ EMAILADHR VARCHAR(25),
+ TELADHR VARCHAR(25),
+ SEXEADHR BOOL,
+ IMAGEADHR LONGBLOB, PRIMARY KEY (ID_ADHERENT)
 );
 
 /*==============================================================*/
 /* Table : AUTEUR                                               */
 /*==============================================================*/
-create table AUTEUR
+CREATE TABLE AUTEUR
 (
-   ID_AUTEUR            int not NULL AUTO_INCREMENT,
-   NOMAUT               varchar(25),
-   PRENOMAUT            varchar(25),
-   DATENAISSAUT         DATE,
-   NATIONALITEAUT       varchar(25),
-   primary key (ID_AUTEUR)
+ ID_AUTEUR INT NOT NULL AUTO_INCREMENT,
+ NOMAUT VARCHAR(25),
+ PRENOMAUT VARCHAR(25),
+ DATENAISSAUT DATE,
+ NATIONALITEAUT VARCHAR(25), PRIMARY KEY (ID_AUTEUR)
 );
 
 /*==============================================================*/
 /* Table : THEME                                                */
 /*==============================================================*/
-create table THEME
+CREATE TABLE THEME
 (
-   ID_THEME             int not NULL AUTO_INCREMENT,
-   LIBELLETH            varchar(25),
-   primary key (ID_THEME)
+ ID_THEME INT NOT NULL AUTO_INCREMENT,
+ LIBELLETH VARCHAR(25), PRIMARY KEY (ID_THEME)
 );
 
 /*==============================================================*/
 /* Table : LIVRE                                                */
 /*==============================================================*/
-create table LIVRE
+CREATE TABLE LIVRE
 (
-   ID_LIVRE             int not NULL AUTO_INCREMENT,
-   ID_THEME             int not null,
-   ISBNLV               varchar(25),
-   TITRELV              varchar(25),
-   LANGUELV             varchar(25),
-   ANNEELV              int,
-   NBR_PAGESLV          int,
-   NBR_EXEMPLV          int,
-   PRIXLV               decimal,
-   DATE_ACHATLV         date,
-   DESCLV               text,
-   IMAGELV              longblob,
-   primary key (ID_LIVRE),
-   constraint FK_APPARTIENTER foreign key (ID_THEME)
-      references THEME (ID_THEME) on delete restrict on update restrict
+ ID_LIVRE INT NOT NULL AUTO_INCREMENT,
+ ID_THEME INT NOT NULL,
+ ISBNLV VARCHAR(25) UNIQUE,
+ TITRELV VARCHAR(25),
+ LANGUELV VARCHAR(25),
+ ANNEELV INT,
+ NBR_PAGESLV INT,
+ NBR_EXEMPLV INT,
+ PRIXLV DECIMAL,
+ DATE_ACHATLV DATE,
+ DESCLV TEXT,
+ IMAGELV LONGBLOB, PRIMARY KEY (ID_LIVRE), CONSTRAINT FK_APPARTIENTER FOREIGN KEY (ID_THEME) REFERENCES THEME (ID_THEME) ON
+DELETE RESTRICT ON
+UPDATE RESTRICT
 );
 
 /*==============================================================*/
 /* Table : ECRIRE                                               */
 /*==============================================================*/
-create table ECRIRE
+CREATE TABLE ECRIRE
 (
-   ID_LIVRE             int not null,
-   ID_AUTEUR            int not null,
-   primary key (ID_LIVRE, ID_AUTEUR),
-   constraint FK_ECRIRE2 foreign key (ID_LIVRE)
-      references LIVRE (ID_LIVRE) on delete restrict on update restrict,
-   constraint FK_ECRIRE foreign key (ID_AUTEUR)
-      references AUTEUR (ID_AUTEUR) on delete restrict on update restrict
+ ID_LIVRE INT NOT NULL,
+ ID_AUTEUR INT NOT NULL, PRIMARY KEY (ID_LIVRE, ID_AUTEUR), CONSTRAINT FK_ECRIRE2 FOREIGN KEY (ID_LIVRE) REFERENCES LIVRE (ID_LIVRE) ON
+DELETE RESTRICT ON
+UPDATE RESTRICT, CONSTRAINT FK_ECRIRE FOREIGN KEY (ID_AUTEUR) REFERENCES AUTEUR (ID_AUTEUR) ON
+DELETE RESTRICT ON
+UPDATE RESTRICT
 );
 
 /*==============================================================*/
 /* Table : EMPRUNT                                              */
 /*==============================================================*/
-create table EMPRUNT
+CREATE TABLE EMPRUNT
 (
-   ID_EMPRUNT           int not NULL AUTO_INCREMENT,
-   ID_LIVRE             int not null,
-   ID_ADHERENT          int not null,
-   DATEDEBUTEMP         date,
-   DATEFINEMP           date,
-   STATUTSEMP           varchar(25),
-   OBSERVEMP            text,
-   primary key (ID_EMPRUNT),
-   constraint FK_ETRE foreign key (ID_LIVRE)
-      references LIVRE (ID_LIVRE) on delete restrict on update restrict,
-   constraint FK_EFFECTUER foreign key (ID_ADHERENT)
-      references ADHERENT (ID_ADHERENT) on delete restrict on update restrict
+ ID_EMPRUNT INT NOT NULL AUTO_INCREMENT,
+ ID_LIVRE INT NOT NULL,
+ ID_ADHERENT INT NOT NULL,
+ DATEDEBUTEMP DATE,
+ DATEFINEMP DATE,
+ STATUTSEMP VARCHAR(25),
+ OBSERVEMP TEXT, PRIMARY KEY (ID_EMPRUNT), CONSTRAINT FK_ETRE FOREIGN KEY (ID_LIVRE) REFERENCES LIVRE (ID_LIVRE) ON
+DELETE RESTRICT ON
+UPDATE RESTRICT, CONSTRAINT FK_EFFECTUER FOREIGN KEY (ID_ADHERENT) REFERENCES ADHERENT (ID_ADHERENT) ON
+DELETE RESTRICT ON
+UPDATE RESTRICT
 );
 
 /*==============================================================*/
 /* Table : USER                                                 */
 /*==============================================================*/
-create table USER
+CREATE TABLE USER
 (
-   ID_USER              int not null AUTO_INCREMENT,
-   NAMEUS               varchar(25),
-   PASSUS               varchar(25),
-   primary key (ID_USER)
+ ID_USER INT NOT NULL AUTO_INCREMENT,
+ NAMEUS VARCHAR(25),
+ PASSUS VARCHAR(25), PRIMARY KEY (ID_USER)
 );
 

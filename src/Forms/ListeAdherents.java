@@ -5,6 +5,7 @@ import Classes.Adherent;
 import Classes.Auteur;
 import Classes.Genre;
 import Classes.Fonctions;
+import Classes.Livre;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
@@ -31,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListeAdherents extends javax.swing.JFrame {
     Fonctions f = new Fonctions();    
-    Adherent adh = new Adherent();
+    Adherent adherent = new Adherent();
     
     /**
      * Creates new form Genres
@@ -242,6 +243,7 @@ public class ListeAdherents extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelCloseMouseClicked
 
     private void jButtonRchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRchActionPerformed
+                
         try {
             // TODO add your handling code here:
             String text = jTextFieldNomOuPrenom.getText();
@@ -249,17 +251,18 @@ public class ListeAdherents extends javax.swing.JFrame {
             AfficherAdherents(req);
             
         } catch (NumberFormatException ex) {
-            Logger.getLogger(ListeAdherents.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListeLivres.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonRchActionPerformed
 
     private void jTableAdherentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAdherentsMouseClicked
+        
         try {
             // TODO add your handling code here:
             int index = jTableAdherents.getSelectedRow();
             
             String cne = jTableAdherents.getValueAt(index, 1).toString();
-            Adherent a = adh.getAdherentById(cne, 0);
+            Adherent a = adherent.getAdherentById(cne, 0);
 
             jLabelCNE.setText("CNE : " + a.getCne());
             jLabelNom.setText("Nom : " + a.getNom());
@@ -271,13 +274,12 @@ public class ListeAdherents extends javax.swing.JFrame {
             f.DisplayIcon(jLabelImage.getWidth(), jLabelImage.getHeight(), bs, "", jLabelImage);            
             
         } catch (SQLException ex) {
-            Logger.getLogger(ListeAdherents.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListeLivres.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jTableAdherentsMouseClicked
 
     public void AfficherAdherents(String req){
-        
-        ArrayList<Adherent> list = adh.Afficher(req);
+        ArrayList<Adherent> list = adherent.Afficher(req);
         String[] colones = {"ID", "CNE", "Nom", "Prenom", "Date", "Email", "Tel", "Sexe"};
         
         Object[][] lignes = new Object[list.size()][colones.length];

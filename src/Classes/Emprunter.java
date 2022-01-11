@@ -177,7 +177,7 @@ public class Emprunter {
         
         try {
             
-            Livre livre = l.getLivreById(idLv);
+            Livre livre = l.getLivreById(idLv, null);
             int qty = livre.getNbr_exemp();
             int qtyEmp = countData(idLv);
             

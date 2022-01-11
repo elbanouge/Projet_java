@@ -168,4 +168,27 @@ public class Auteur {
         }
         return list;
     }
+    
+    public Auteur getAutByID(int idAut){
+        Auteur aut = null;
+
+        try {            
+            String req = "SELECT * FROM `auteur` WHERE ID_AUTEUR = '"+idAut+"';";            
+            rs = f.getData(req);
+            
+            if(rs != null){
+
+                while(rs.next()){
+                aut = new Auteur(rs.getInt("ID_AUTEUR"), rs.getString("NOMAUT"), rs.getString("PRENOMAUT"), rs.getString("DATENAISSAUT"), rs.getString("NATIONALITEAUT"));
+            }
+            }else{
+                JOptionPane.showMessageDialog(null, "la liste des auteur est vide", "Attention", 2);
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "la liste des auteur est vide", "Attention", 2);
+            Logger.getLogger(Auteur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return aut;
+    }
 }
