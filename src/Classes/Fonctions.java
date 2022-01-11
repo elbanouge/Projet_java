@@ -46,9 +46,9 @@ public class Fonctions {
         label.setIcon(new ImageIcon(img));
     }
     
-    PreparedStatement ps;
-    Statement st;
-    ResultSet rs;
+    public static PreparedStatement ps;
+    public static Statement st;
+    public static ResultSet rs;
     public ResultSet getData(String req){
         
         try {            
@@ -61,7 +61,7 @@ public class Fonctions {
         return rs;
     }
     
-    public int countData(String tableName){
+    public static int countData(String tableName){
         int total = 0;
  
         try {            

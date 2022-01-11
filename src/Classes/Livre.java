@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -156,6 +157,7 @@ public class Livre {
         this.auteur = auteur;
     }
     
+    Statement st;
     PreparedStatement ps;
     ResultSet rs;
     Fonctions f = new Fonctions();
@@ -219,12 +221,35 @@ public class Livre {
             
             while(rs.next()){
                 lv = new Livre(rs.getInt("ID_LIVRE"), rs.getString("ISBNLV"), rs.getString("TITRELV"), rs.getString("LANGUELV"),
-                        rs.getInt("ANNEELV"), rs.getInt("NBR_PAGESLV"), rs.getInt("NBR_EXEMPLV"), rs.getDouble("PRIXLV"),
-                        rs.getString("DATE_ACHATLV"), rs.getString("DESCLV"), rs.getBytes("IMAGELV"), rs.getInt("ID_THEME"), rs.getInt("ID_AUTEUR"));
+                    rs.getInt("ANNEELV"), rs.getInt("NBR_PAGESLV"), rs.getInt("NBR_EXEMPLV"), rs.getDouble("PRIXLV"),
+                    rs.getString("DATE_ACHATLV"), rs.getString("DESCLV"), rs.getBytes("IMAGELV"), rs.getInt("ID_THEME"), rs.getInt("ID_AUTEUR"));
             }
+      
         }else{
                 JOptionPane.showMessageDialog(null, "la liste des livre est vide", "Attention", 2);
         }
         return lv;
+    }
+    
+    
+    public void DisplayLivreCover(JLabel[] labels) {
+ 
+        try {            
+            String req = "SELECT `IMAGELV` FROM `gestionbiblio`.`livre` LIMIT 4;";
+            
+            st = DB.getConnection().createStatement();
+            rs = st.executeQuery(req);
+   
+            byte[] img;
+            int i = 0;
+            if(rs.next()){
+                img = rs.getBytes("IMAGELV");
+                f.DisplayIcon(labels[i].getWidth(), labels[i].getHeight(), img, titre, labels[i]);
+                i++;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Livre.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

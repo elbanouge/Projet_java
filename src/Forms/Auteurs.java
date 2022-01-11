@@ -342,6 +342,7 @@ public class Auteurs extends javax.swing.JFrame {
             aut.Ajouter(nomA, prenomA, dateA, natA);
             Vider();
             AfficherAuteurs();
+            Dashboard.Statistiques();
         }
     }//GEN-LAST:event_jButtonAddActionPerformed
 
