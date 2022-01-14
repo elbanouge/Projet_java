@@ -161,7 +161,7 @@ public class Emprunter {
             ps = DB.getConnection().prepareStatement(reqS);
             ps.setInt(1, idEmp);
             
-            if(ps.executeUpdate() != 0){
+            if(ps.executeUpdate() > 0){
                 JOptionPane.showMessageDialog(null, "Supprime emprunt avec succces", "Supprimer", 1);
             }else{
                 JOptionPane.showMessageDialog(null, "Emprunt livre n'est pas supprime", "Attention", 2);
@@ -175,21 +175,14 @@ public class Emprunter {
     public boolean CheckDispoLivre(int idLv){
         boolean b = false;
         
-        try {
-            
-            Livre livre = l.getLivreById(idLv, null);
-            int qty = livre.getNbr_exemp();
-            int qtyEmp = countData(idLv);
-            
-            if(qty > qtyEmp){
-                b = true;
-             }
-            else{                
-                b = false;
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Emprunter.class.getName()).log(Level.SEVERE, null, ex);
+        Livre livre = l.getLivreById(idLv, null);
+        int qty = livre.getNbr_exemp();
+        int qtyEmp = countData(idLv);
+        if(qty > qtyEmp){
+            b = true;
+        }
+        else{
+            b = false;
         }
         
         return b;

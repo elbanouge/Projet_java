@@ -8,9 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +15,7 @@ import javax.swing.JOptionPane;
  * @author abdel
  */
 public class Adherent {
+
     private int id;
     private String cne;
     private String nom;
@@ -114,46 +112,45 @@ public class Adherent {
     public void setImage(byte[] image) {
         this.image = image;
     }
-    
+
     PreparedStatement ps;
     ResultSet rs;
     Fonctions f = new Fonctions();
-    
-    public void Ajouter(String cne, String nom, String prenom, String date, String email, String tel, byte sexe, byte[] img){
+
+    public void Ajouter(String cne, String nom, String prenom, String date, String email, String tel, byte sexe, byte[] img) {
         try {
-            String req = "INSERT INTO `adherent` (`CNEADHR`, `NOMADHR`, `PRENOMADHR`, `DATENAISSADHR`, `EMAILADHR`, `TELADHR`, `SEXEADHR`, `IMAGEADHR`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-            
+            String req = "INSERT INTO `adherent` (`CNEADHR`, `NOMADHR`, `PRENOMADHR`, `DATENAISSADHR`,"
+                    + " `EMAILADHR`, `TELADHR`, `SEXEADHR`, `IMAGEADHR`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+
             ps = DB.getConnection().prepareStatement(req);
-            ps.setString(1, cne);               
-            ps.setString(2, nom);                     
-            ps.setString(3, prenom);            
+            ps.setString(1, cne);
+            ps.setString(2, nom);
+            ps.setString(3, prenom);
             ps.setString(4, date);
             ps.setString(5, email);
             ps.setString(6, tel);
             ps.setByte(7, sexe);
             ps.setBytes(8, img);
 
-            
-            if(ps.executeUpdate() == 1){
-                JOptionPane.showMessageDialog(null, "Ajouter adherent avec succces", "Ajouter", 1); 
-            }
-            else{
+            if (ps.executeUpdate() == 1) {
+                JOptionPane.showMessageDialog(null, "Ajouter adherent avec succces", "Ajouter", 1);
+            } else {
                 JOptionPane.showMessageDialog(null, "Adherent n'est pas ajouter", "Attention", 2);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Adherent n'est pas ajouter", "Attention", 2);
-            Logger.getLogger(Adherent.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     public void Modifier(String cne, String nom, String prenom, String date, String email, String tel, byte sexe, byte[] img) {
         try {
-            
-        String reqU = "UPDATE `gestionbiblio`.`adherent` SET `NOMADHR`=?, `PRENOMADHR`=?, `DATENAISSADHR`=?, `EMAILADHR`=?, `TELADHR`=?, `SEXEADHR`=?, `IMAGEADHR`=? WHERE `CNEADHR`=?;";
-            
+
+            String reqU = "UPDATE `gestionbiblio`.`adherent` SET `NOMADHR`=?, `PRENOMADHR`=?, `DATENAISSADHR`=?,"
+                    + " `EMAILADHR`=?, `TELADHR`=?, `SEXEADHR`=?, `IMAGEADHR`=? WHERE `CNEADHR`=?;";
+
             ps = DB.getConnection().prepareStatement(reqU);
-            ps.setString(1, nom);            
-            ps.setString(2, prenom);            
+            ps.setString(1, nom);
+            ps.setString(2, prenom);
             ps.setString(3, date);
             ps.setString(4, email);
             ps.setString(5, tel);
@@ -161,83 +158,87 @@ public class Adherent {
             ps.setBytes(7, img);
             ps.setString(8, cne);
 
-            if(ps.executeUpdate() != 0){
+            if (ps.executeUpdate() != 0) {
                 JOptionPane.showMessageDialog(null, "Modifie adherent avec succces", "Modifier", 1);
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Adherent n'est pas modifie", "Attention", 2);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Adherent n'est pas modifie", "Attention", 2);
-            Logger.getLogger(Adherent.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     public void Supprimer(String cne_idA, String s) {
-        
-        try{
-            String reqS = "DELETE FROM `adherent` WHERE  `"+s+"`=?;";
-        
+
+        try {
+            String reqS = "DELETE FROM `adherent` WHERE  `" + s + "`=?;";
+
             ps = DB.getConnection().prepareStatement(reqS);
             ps.setString(1, cne_idA);
-            
-            if(ps.executeUpdate() != 0){
+
+            if (ps.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(null, "Supprime adherent avec succces", "Supprimer", 1);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Adherent n'est pas supprime", "Attention", 2);
             }
-        }catch(SQLException exception){
-            JOptionPane.showMessageDialog(null, "Adherent n'est pas supprime", "Attention", 2);
-            Logger.getLogger(Adherent.class.getName()).log(Level.SEVERE, null, exception);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    public Adherent getAdherentById(String cne, int idAhr) throws SQLException{
-        Adherent aut = null;
-        String req = "SELECT * FROM `adherent` WHERE CNEADHR = '"+cne+"';";
-        
-        if(cne == null){
-            req = "SELECT * FROM `adherent` WHERE ID_ADHERENT = '"+idAhr+"';";            
-        }
-        
-        ResultSet rs = f.getData(req);
-        
-        if(rs != null){
 
-            while(rs.next()){
-                aut = new Adherent(rs.getInt("ID_ADHERENT"), rs.getString("CNEADHR"), rs.getString("NOMADHR"), rs.getString("PRENOMADHR"), rs.getString("DATENAISSADHR"), rs.getString("EMAILADHR"), rs.getString("TELADHR"), rs.getByte("SEXEADHR"), rs.getBytes("IMAGEADHR"));
+    public Adherent getAdherentById(String cne, int idAhr) {
+        Adherent aut = null;
+        String req = "SELECT * FROM `adherent` WHERE CNEADHR = '" + cne + "';";
+
+        if (cne == null) {
+            req = "SELECT * FROM `adherent` WHERE ID_ADHERENT = '" + idAhr + "';";
+        }
+
+        ResultSet rs = f.getData(req);
+
+        if (rs != null) {
+
+            try {
+                while (rs.next()) {
+                    aut = new Adherent(rs.getInt("ID_ADHERENT"), rs.getString("CNEADHR"), rs.getString("NOMADHR"),
+                            rs.getString("PRENOMADHR"), rs.getString("DATENAISSADHR"), rs.getString("EMAILADHR"),
+                            rs.getString("TELADHR"), rs.getByte("SEXEADHR"), rs.getBytes("IMAGEADHR"));
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
             }
-        }else{
-                JOptionPane.showMessageDialog(null, "la liste des adherents est vide", "Attention", 2);
+        } else {
+            JOptionPane.showMessageDialog(null, "l'adherent n'existe pas", "Attention", 2);
         }
         return aut;
     }
-    
-    public ArrayList<Adherent> Afficher(String req){
+
+    public ArrayList<Adherent> Afficher(String req) {
         ArrayList<Adherent> list = new ArrayList<>();
-        String r = "SELECT * FROM `adherent`;";            
+        String r = "SELECT * FROM `adherent`;";
 
         try {
 
-            if(req.equals("")){
+            if (req.equals("")) {
                 rs = f.getData(r);
-            }else{
+            } else {
                 rs = f.getData(req);
             }
-            
-            if(rs != null){
 
-                while(rs.next()){
-                Adherent aut = new Adherent(rs.getInt("ID_ADHERENT"), rs.getString("CNEADHR"), rs.getString("NOMADHR"), rs.getString("PRENOMADHR"), rs.getString("DATENAISSADHR"), rs.getString("EMAILADHR"), rs.getString("TELADHR"), rs.getByte("SEXEADHR"), rs.getBytes("IMAGEADHR"));
-                list.add(aut);
-            }
-            }else{
+            if (rs != null) {
+
+                while (rs.next()) {
+                    Adherent aut = new Adherent(rs.getInt("ID_ADHERENT"), rs.getString("CNEADHR"), rs.getString("NOMADHR"),
+                            rs.getString("PRENOMADHR"), rs.getString("DATENAISSADHR"), rs.getString("EMAILADHR"),
+                            rs.getString("TELADHR"), rs.getByte("SEXEADHR"), rs.getBytes("IMAGEADHR"));
+                    list.add(aut);
+                }
+            } else {
                 JOptionPane.showMessageDialog(null, "la liste des adherents est vide", "Attention", 2);
             }
-            
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "la liste des adherents est vide", "Attention", 2);
-            Logger.getLogger(Adherent.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
         }
         return list;
     }

@@ -7,13 +7,8 @@ package Forms;
 import Classes.Genre;
 import Classes.Fonctions;
 import java.awt.Color;
-import java.awt.Font;
-import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -75,7 +70,7 @@ public class Genres extends javax.swing.JFrame {
         jLabelTitre.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
         jLabelTitre.setForeground(new java.awt.Color(103, 111, 163));
         jLabelTitre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitre.setText("Gestion genres des livres");
+        jLabelTitre.setText("Gestion thémes des livres");
         jLabelTitre.setOpaque(true);
 
         jLabelClose.setBackground(new java.awt.Color(238, 242, 255));
@@ -123,7 +118,7 @@ public class Genres extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jLabel2.setText("Nom de genre de livre :");
+        jLabel2.setText("Nom de théme :");
 
         jButtonSupp.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jButtonSupp.setText("Supprimer");
@@ -178,6 +173,15 @@ public class Genres extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldNomG, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
@@ -185,18 +189,9 @@ public class Genres extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(jButtonSupp, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldNomG, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -258,7 +253,7 @@ public class Genres extends javax.swing.JFrame {
             AfficherGenres();
           
         }catch(NumberFormatException exception){
-            JOptionPane.showMessageDialog(null, "Genre n'est pas modifie", "Attention", 2);
+            JOptionPane.showMessageDialog(null, exception.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_jButtonSuppActionPerformed
 
@@ -267,7 +262,7 @@ public class Genres extends javax.swing.JFrame {
         String nomG = jTextFieldNomG.getText();
         
         if(nomG.isEmpty()){
-            jLabelError.setText("* Entrer le nom de genre livre");
+            jLabelError.setText("* Entrer le nom de théme livre");
             jLabelError.setVisible(true);
         }
         else{
@@ -283,7 +278,7 @@ public class Genres extends javax.swing.JFrame {
         String nomG = jTextFieldNomG.getText();
         
         if(nomG.isEmpty()){
-            jLabelError.setText("* Entrer le nom de genre livre");
+            jLabelError.setText("* Entrer le nom de théme livre");
             jLabelError.setVisible(true);
         }
         else{
@@ -294,7 +289,7 @@ public class Genres extends javax.swing.JFrame {
                 AfficherGenres();
                 
             }catch(NumberFormatException exception){
-                JOptionPane.showMessageDialog(null, "Genre n'est pas modifie", "Attention", 1);
+                JOptionPane.showMessageDialog(null, exception.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButtonModActionPerformed

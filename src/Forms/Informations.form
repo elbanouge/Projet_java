@@ -59,11 +59,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelCNE" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabelNom" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabelPrenom" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabelDate" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabelEmail" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabelTitre1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabelTitre2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabelTitre3" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabelTitre4" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabelTitre5" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jScrollPane1" min="-2" pref="369" max="-2" attributes="0"/>
@@ -83,18 +83,18 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabelImage" min="-2" pref="135" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabelCNE" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelTitre1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabelNom" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelTitre2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabelPrenom" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelTitre3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabelDate" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelTitre4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabelEmail" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelTitre5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="85" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -178,44 +178,44 @@
             <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelNom">
+        <Component class="javax.swing.JLabel" name="jLabelTitre2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Cambria" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nom :"/>
+            <Property name="text" type="java.lang.String" value="TitLabel2 :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelPrenom">
+        <Component class="javax.swing.JLabel" name="jLabelTitre3">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Cambria" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Prenom :"/>
+            <Property name="text" type="java.lang.String" value="TitLabel3 :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelEmail">
+        <Component class="javax.swing.JLabel" name="jLabelTitre5">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Cambria" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Email :"/>
+            <Property name="text" type="java.lang.String" value="TitLabel5 :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelDate">
+        <Component class="javax.swing.JLabel" name="jLabelTitre4">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Cambria" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Date :"/>
+            <Property name="text" type="java.lang.String" value="TitLabel4 :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelCNE">
+        <Component class="javax.swing.JLabel" name="jLabelTitre1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Cambria" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="CNE :"/>
+            <Property name="text" type="java.lang.String" value="TitLabel1 :"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -225,9 +225,12 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="jTextArea1">
+            <Component class="javax.swing.JTextArea" name="jTextArea">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Cambria" size="14" style="0"/>
+                </Property>
                 <Property name="rows" type="int" value="5"/>
               </Properties>
             </Component>

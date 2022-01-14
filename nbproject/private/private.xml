@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/LP%20DSIC/Java/Projet%20Java/AppGestionBiblio/src/Forms/Informations.java</file>
-            <file>file:/D:/LP%20DSIC/Java/Projet%20Java/AppGestionBiblio/src/Classes/DB.java</file>
+            <file>file:/D:/LP%20DSIC/Java/Projet%20Java/AppGestionBiblio/src/Forms/RetourLivre.java</file>
+            <file>file:/D:/LP%20DSIC/Java/Projet%20Java/AppGestionBiblio/src/Forms/SelectAuteur.java</file>
+            <file>file:/D:/LP%20DSIC/Java/Projet%20Java/AppGestionBiblio/src/Forms/ModifierLivre.java</file>
+            <file>file:/D:/LP%20DSIC/Java/Projet%20Java/AppGestionBiblio/src/Forms/EmpruntLivre.java</file>
+            <file>file:/D:/LP%20DSIC/Java/Projet%20Java/AppGestionBiblio/src/Classes/Livre.java</file>
+            <file>file:/D:/LP%20DSIC/Java/Projet%20Java/AppGestionBiblio/src/Forms/ListeLivres.java</file>
         </group>
     </open-files>
 </project-private>

@@ -9,8 +9,6 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -206,12 +204,12 @@ public class Livre {
             }
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "livre n'est pas ajouter", "Attention", 2);
-            Logger.getLogger(Livre.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void Modifier(int idLv, String isbn, int idAut, int idTh, String titre, String langue, int annee, int nb_pages, int nb_exmpl, double prix, String date, String desc, byte[] img){
+    public void Modifier(int idLv, String isbn, int idAut, int idTh, String titre, String langue, int annee, int nb_pages, int nb_exmpl,
+            double prix, String date, String desc, byte[] img){
   
         try {
         
@@ -247,12 +245,11 @@ public class Livre {
             }
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "livre n'est pas modifie", "Attention", 2);
-            Logger.getLogger(Livre.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    public Livre getLivreById(int idlv, String isbn) throws SQLException{
+    public Livre getLivreById(int idlv, String isbn) {
         Livre lv = null;
         String req = "SELECT * FROM `livre` L join `ecrire` E ON L.ID_LIVRE = E.ID_LIVRE WHERE E.ID_LIVRE = '"+idlv+"'";
         
@@ -264,10 +261,14 @@ public class Livre {
         
         if(rs != null){
             
-            while(rs.next()){
-                lv = new Livre(rs.getInt("ID_LIVRE"), rs.getString("ISBNLV"), rs.getString("TITRELV"), rs.getString("LANGUELV"),
-                    rs.getInt("ANNEELV"), rs.getInt("NBR_PAGESLV"), rs.getInt("NBR_EXEMPLV"), rs.getDouble("PRIXLV"),
-                    rs.getString("DATE_ACHATLV"), rs.getString("DESCLV"), rs.getBytes("IMAGELV"), rs.getInt("ID_THEME"), rs.getInt("ID_AUTEUR"));
+            try {
+                while(rs.next()){
+                    lv = new Livre(rs.getInt("ID_LIVRE"), rs.getString("ISBNLV"), rs.getString("TITRELV"), rs.getString("LANGUELV"),
+                            rs.getInt("ANNEELV"), rs.getInt("NBR_PAGESLV"), rs.getInt("NBR_EXEMPLV"), rs.getDouble("PRIXLV"),
+                            rs.getString("DATE_ACHATLV"), rs.getString("DESCLV"), rs.getBytes("IMAGELV"), rs.getInt("ID_THEME"), rs.getInt("ID_AUTEUR"));
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
             }
       
         }else{
@@ -276,7 +277,24 @@ public class Livre {
         return lv;
     }
     
-    
+    public void Supprimer(String ISBN_idL, String s) {
+
+        try {
+            String reqS = "DELETE L, E FROM `gestionbiblio`.`livre` L JOIN `gestionbiblio`.`ecrire` E ON L.ID_LIVRE = E.ID_LIVRE WHERE " + s + " =?;";
+
+            ps = DB.getConnection().prepareStatement(reqS);
+            ps.setString(1, ISBN_idL);
+
+            if (ps.executeUpdate() > 0) {
+                JOptionPane.showMessageDialog(null, "Supprime livre avec succces", "Supprimer", 1);
+            } else {
+                JOptionPane.showMessageDialog(null, "Livre n'est pas supprime", "Attention", 2);
+            }
+        } catch (SQLException ex) {
+
+        }
+    }
+
     public void DisplayLivreCover(JLabel[] labels) {
         
         try {            
@@ -295,7 +313,7 @@ public class Livre {
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(Livre.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -324,8 +342,7 @@ public class Livre {
             }
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "la liste des livres est vide", "Attention", 2);
-            Logger.getLogger(Adherent.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
         }
         return list;
     }

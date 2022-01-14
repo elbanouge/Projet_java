@@ -77,30 +77,25 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jTextFieldAnnee" max="32767" attributes="0"/>
-                                  <Component id="jSpinnerNmExmp" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jSpinnerNmPages" alignment="1" pref="368" max="32767" attributes="0"/>
-                                  <Component id="jTextFieldLang" alignment="1" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jDateChooserDate" max="32767" attributes="0"/>
                                   <Component id="jTextFieldPrix" max="32767" attributes="0"/>
-                                  <Component id="jDateChooserDate" pref="368" max="32767" attributes="0"/>
+                                  <Component id="jSpinnerNmExmp" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jSpinnerNmPages" alignment="1" pref="371" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldLang" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldAnnee" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jButtonMod" alignment="1" min="-2" pref="261" max="-2" attributes="0"/>
                   </Group>
@@ -221,11 +216,12 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jDateChooserDate" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
-                                  <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jButtonImage" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Component id="jDateChooserDate" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jLabelImg" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
@@ -617,6 +613,9 @@
             <Component class="javax.swing.JTextArea" name="jTextAreaDesc">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Cambria" size="14" style="0"/>
+                </Property>
                 <Property name="rows" type="int" value="5"/>
               </Properties>
             </Component>

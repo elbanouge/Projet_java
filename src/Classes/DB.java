@@ -7,8 +7,6 @@ package Classes;
 import com.mysql.cj.jdbc.*;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -35,13 +33,10 @@ public class DB {
         dataSource.setPort(portNumber);
         dataSource.setPassword( password);
         
-        
-            connection = dataSource.getConnection();
+        connection = dataSource.getConnection();
+            
         } catch (SQLException ex) {
-            System.out.println("******************************");
-            System.out.println("* Awdi rak maconnectich !!!! *");
-            System.out.println("******************************");
-            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
         }
         return connection;
     }
