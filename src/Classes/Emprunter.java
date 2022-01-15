@@ -179,7 +179,7 @@ public class Emprunter {
         Livre livre = l.getLivreById(idLv, null);
         int qty = livre.getNbr_exemp();
         int qtyEmp = countData(idLv);
-        System.out.println(qty + "-" + qtyEmp);
+
         if(qty > qtyEmp){
             b = true;
         }
@@ -194,7 +194,7 @@ public class Emprunter {
         int total = 0;
  
         try {            
-            String req = "SELECT Count(*) as total from `emprunt` E WHERE E.ID_LIVRE = '"+idLv+"' AND E.STATUTSEMP = 'rendue';";
+            String req = "SELECT Count(*) as total from `emprunt` E WHERE E.ID_LIVRE = '"+idLv+"' AND E.STATUTSEMP = 'Emprunte';";
             
             st = DB.getConnection().createStatement();
             rs = st.executeQuery(req);

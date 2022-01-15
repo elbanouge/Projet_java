@@ -28,10 +28,10 @@ public class Informations extends javax.swing.JFrame {
             DisplayInfoLivre(EmpruntLivre.idLv);
         } else if (EmpruntLivre.typeInfo.equals("Adherent")) {
             DisplayInfoAdherent(EmpruntLivre.idAdhr);
-        } else if (RetourLivre.typeInfo.equals("LivreR")) {
-            DisplayInfoLivre(RetourLivre.idLv);
-        } else if (RetourLivre.typeInfo.equals("AdherentR")) {
-            DisplayInfoAdherent(RetourLivre.idAdhr);
+        } else if (RendreLivre.typeInfo.equals("LivreR")) {
+            DisplayInfoLivre(RendreLivre.idLv);
+        } else if (RendreLivre.typeInfo.equals("AdherentR")) {
+            DisplayInfoAdherent(RendreLivre.idAdhr);
         }
     }
 

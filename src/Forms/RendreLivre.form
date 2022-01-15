@@ -217,7 +217,7 @@
                   <Color blue="a3" green="6f" red="67" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Retour livre"/>
+                <Property name="text" type="java.lang.String" value="Rendre livre"/>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
@@ -394,7 +394,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Cambria" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Retourne"/>
+            <Property name="text" type="java.lang.String" value="Retourn&#xe9;"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
             </Property>
@@ -422,7 +422,7 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
                 <StringItem index="0" value="Tout"/>
-                <StringItem index="1" value="Rendue"/>
+                <StringItem index="1" value="Emprunte"/>
                 <StringItem index="2" value="Retourne"/>
                 <StringItem index="3" value="Perdu"/>
               </StringArray>

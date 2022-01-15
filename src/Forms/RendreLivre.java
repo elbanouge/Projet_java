@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author abdel
  */
-public class RetourLivre extends javax.swing.JFrame {
+public class RendreLivre extends javax.swing.JFrame {
 
     Fonctions f = new Fonctions();
     Emprunter emprunter = new Emprunter();
@@ -26,7 +26,7 @@ public class RetourLivre extends javax.swing.JFrame {
     /**
      * Creates new form Genres
      */
-    public RetourLivre() {
+    public RendreLivre() {
 
         initComponents();
         f.DisplayIcon(45, 40, null, "/Images/CloseIcon.png", jLabelClose);
@@ -83,7 +83,7 @@ public class RetourLivre extends javax.swing.JFrame {
         jLabelTitre.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
         jLabelTitre.setForeground(new java.awt.Color(103, 111, 163));
         jLabelTitre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitre.setText("Retour livre");
+        jLabelTitre.setText("Rendre livre");
         jLabelTitre.setOpaque(true);
 
         jLabelClose.setBackground(new java.awt.Color(205, 222, 255));
@@ -196,7 +196,7 @@ public class RetourLivre extends javax.swing.JFrame {
         jLabel12.setText("Observation :");
 
         jButtonRet.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jButtonRet.setText("Retourne");
+        jButtonRet.setText("Retourné");
         jButtonRet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonRet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,7 +213,7 @@ public class RetourLivre extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tout", "Rendue", "Retourne", "Perdu" }));
+        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tout", "Emprunte", "Retourne", "Perdu" }));
         jComboBoxStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxStatusActionPerformed(evt);
@@ -550,7 +550,7 @@ public class RetourLivre extends javax.swing.JFrame {
     public void AfficherLivreEmp(String stat) {
 
         ArrayList<Emprunter> list = emprunter.Afficher(stat);
-        String[] colones = {"ID Emprunt", "ID Livre", "ID Adherent", "Date Empeunt", "Date Retour", "Statut", "Observation"};
+        String[] colones = {"ID Emprunt", "ID Livre", "ID Adherent", "Date Emprunt", "Date Retour", "Statut", "Observation"};
 
         Object[][] lignes = new Object[list.size()][colones.length];
 
@@ -586,14 +586,18 @@ public class RetourLivre extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RetourLivre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RendreLivre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RetourLivre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RendreLivre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RetourLivre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RendreLivre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RetourLivre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RendreLivre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -602,7 +606,7 @@ public class RetourLivre extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RetourLivre().setVisible(true);
+                new RendreLivre().setVisible(true);
             }
         });
     }

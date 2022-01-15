@@ -741,7 +741,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButtonGesEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGesEmpActionPerformed
         // TODO add your handling code here:
-        RetourLivre retourLivre = new RetourLivre();
+        RendreLivre retourLivre = new RendreLivre();
         retourLivre.setVisible(true);
     }//GEN-LAST:event_jButtonGesEmpActionPerformed
 

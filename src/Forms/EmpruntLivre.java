@@ -377,7 +377,7 @@ public class EmpruntLivre extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Ce livre n'est pas disponible !!!!", "Attention", 2);
             } else {
 
-                emprunter.Ajouter(idL, idAdh, "Rendue", dateE, dateR, obser);
+                emprunter.Ajouter(idL, idAdh, "Emprunte", dateE, dateR, obser);
             }
 
         } catch (ParseException | NullPointerException ex) {
