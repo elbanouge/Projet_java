@@ -201,7 +201,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Genres");
+        jLabel1.setText("Thémes");
 
         jLabel5.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -233,7 +233,7 @@ public class Dashboard extends javax.swing.JFrame {
         });
 
         jButtonGes_Genres.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonGes_Genres.setText("Gestion genres");
+        jButtonGes_Genres.setText("Gestion thémes");
         jButtonGes_Genres.setContentAreaFilled(false);
         jButtonGes_Genres.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonGes_Genres.addActionListener(new java.awt.event.ActionListener() {

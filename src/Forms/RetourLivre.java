@@ -22,7 +22,7 @@ public class RetourLivre extends javax.swing.JFrame {
     Emprunter emprunter = new Emprunter();
     Livre l = new Livre();
     Adherent a = new Adherent();
-    
+
     /**
      * Creates new form Genres
      */
@@ -353,15 +353,15 @@ public class RetourLivre extends javax.swing.JFrame {
             int index = jTableEmpLivres.getSelectedRow();
 
             int idLv = Integer.parseInt(jTableEmpLivres.getValueAt(index, 1).toString());
-            
+
             Livre livre = l.getLivreById(idLv, null);
             jLabelLvInfo.setText(livre.getTitre());
-            
+
             int idAdh = Integer.parseInt(jTableEmpLivres.getValueAt(index, 2).toString());
-            
+
             Adherent adherent = a.getAdherentById(null, idAdh);
-            jLabelAdhInfo.setText(adherent.getNom()+" "+adherent.getPrenom());
-            
+            jLabelAdhInfo.setText(adherent.getNom() + " " + adherent.getPrenom());
+
             String dateE = jTableEmpLivres.getValueAt(index, 3).toString();
             String dateR = jTableEmpLivres.getValueAt(index, 4).toString();
             String statut = jTableEmpLivres.getValueAt(index, 5).toString();
@@ -409,6 +409,7 @@ public class RetourLivre extends javax.swing.JFrame {
                 } else {
                     idEmp = Integer.parseInt(jTableEmpLivres.getValueAt(index, 0).toString());
                     emprunter.Modifier(idEmp, idLv, idAdh, "Retourne", dateE, dateR, obser);
+                    AfficherLivreEmp("");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Vous pouvez selectionne d'abord un ligne !!!!", "Attention", 2);
@@ -449,6 +450,7 @@ public class RetourLivre extends javax.swing.JFrame {
                 } else {
                     idEmp = Integer.parseInt(jTableEmpLivres.getValueAt(index, 0).toString());
                     emprunter.Modifier(idEmp, idLv, idAdh, "Perdu", dateE, dateR, obser);
+                    AfficherLivreEmp("");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Vous pouvez selectionne d'abord un ligne !!!!", "Attention", 2);
