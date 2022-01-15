@@ -23,6 +23,7 @@ public class RetourLivre extends javax.swing.JFrame {
      * Creates new form Genres
      */
     public RetourLivre() {
+        //test
         initComponents();
         f.DisplayIcon(45, 40, null, "/Images/CloseIcon.png", jLabelClose);
         f.DisplayIcon(90, 80, null, "/Images/book.png", jLabelTitre);
