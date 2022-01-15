@@ -84,7 +84,6 @@ public class Genre {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
     public void Supprimer(int idG) {

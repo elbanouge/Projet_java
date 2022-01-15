@@ -346,4 +346,22 @@ public class Livre {
         }
         return list;
     }
+    
+    
+    public void ModifierQTY(int idLv) {
+        try {
+            String reqU = "UPDATE livre SET NBR_EXEMPLV = (NBR_EXEMPLV -1) WHERE ID_LIVRE = ?;";
+
+            ps = DB.getConnection().prepareStatement(reqU);
+            ps.setInt(1, idLv);
+
+            if (ps.executeUpdate() >= 0) {
+                JOptionPane.showMessageDialog(null, "Modifie nombre exemplaire livre avec succces", "Modifier", 1);
+            } else {
+                JOptionPane.showMessageDialog(null, "Nombre exemplaire livre n'est pas modifie", "Attention", 2);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

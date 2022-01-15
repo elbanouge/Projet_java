@@ -116,6 +116,7 @@ public class Emprunter {
             
             if(ps.executeUpdate() == 1){
                 JOptionPane.showMessageDialog(null, "Ajouter emprunte avec succces", "Ajouter", 1); 
+                l.ModifierQTY(idLv);
             }
             else{
                 JOptionPane.showMessageDialog(null, "Emprunt livre n'est pas ajouter", "Attention", 2);
@@ -178,6 +179,7 @@ public class Emprunter {
         Livre livre = l.getLivreById(idLv, null);
         int qty = livre.getNbr_exemp();
         int qtyEmp = countData(idLv);
+        System.out.println(qty + "-" + qtyEmp);
         if(qty > qtyEmp){
             b = true;
         }

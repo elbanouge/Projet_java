@@ -29,6 +29,9 @@ public class EmpruntLivre extends javax.swing.JFrame {
         f.DisplayIcon(45, 40, null, "/Images/CloseIcon.png", jLabelClose);
         f.DisplayIcon(90, 80, null, "/Images/EmpBook.png", jLabelTitre);
         this.setLocationRelativeTo(null);
+
+        jDateChooserDateEmp.setDate(new Date());
+        jDateChooserDateRetour.setDate(new Date());
     }
 
     /**
@@ -179,6 +182,9 @@ public class EmpruntLivre extends javax.swing.JFrame {
         jLabelAdhInfo.setText("Adherent informations");
         jLabelAdhInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabelAdhInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAdhInfoMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabelAdhInfoMouseEntered(evt);
             }
@@ -313,13 +319,13 @@ public class EmpruntLivre extends javax.swing.JFrame {
 
     private void jButtonRchLvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRchLvActionPerformed
         // TODO add your handling code here:
-        int idLv = Integer.parseInt(jSpinnerLvID.getValue().toString());
+        int idL = Integer.parseInt(jSpinnerLvID.getValue().toString());
 
-        Livre l = livre.getLivreById(idLv, null);
+        Livre l = livre.getLivreById(idL, null);
         if (l != null) {
             jLabelLvInfo.setText(l.getTitre());
 
-            if (emprunter.CheckDispoLivre(idLv)) {
+            if (emprunter.CheckDispoLivre(idL)) {
                 jLabelOuiNon.setText("Oui");
                 jLabelOuiNon.setForeground(Color.green);
             } else {
@@ -327,6 +333,7 @@ public class EmpruntLivre extends javax.swing.JFrame {
                 jLabelOuiNon.setForeground(Color.red);
             }
         } else {
+            jLabelLvInfo.setText("Livre informations");
             JOptionPane.showMessageDialog(null, "Le livre que vous recherche n'existe pas", "Attention", 2);
         }
     }//GEN-LAST:event_jButtonRchLvActionPerformed
@@ -344,6 +351,7 @@ public class EmpruntLivre extends javax.swing.JFrame {
         if (a != null) {
             jLabelAdhInfo.setText(a.getNom() + " " + a.getPrenom());
         } else {
+            jLabelAdhInfo.setText("Adherent informations");
             JOptionPane.showMessageDialog(null, "L'adherent que vous recherche n'existe pas", "Attention", 2);
         }
     }//GEN-LAST:event_jButtonRchAdhActionPerformed
@@ -351,7 +359,7 @@ public class EmpruntLivre extends javax.swing.JFrame {
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         try {
             // TODO add your handling code here:
-            int idLv = (int) jSpinnerLvID.getValue();
+            int idL = (int) jSpinnerLvID.getValue();
             int idAdh = (int) jSpinnerAdhID.getValue();
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -369,7 +377,7 @@ public class EmpruntLivre extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Ce livre n'est pas disponible !!!!", "Attention", 2);
             } else {
 
-                emprunter.Ajouter(idLv, idAdh, "Rendue", dateE, dateR, obser);
+                emprunter.Ajouter(idL, idAdh, "Rendue", dateE, dateR, obser);
             }
 
         } catch (ParseException | NullPointerException ex) {
@@ -401,14 +409,37 @@ public class EmpruntLivre extends javax.swing.JFrame {
         f.setBorderToJLabel(Color.WHITE, jLabelAdhInfo);
     }//GEN-LAST:event_jLabelAdhInfoMouseExited
 
+    public static String typeInfo = "";
     public static int idLv;
+    public static int idAdhr;
     private void jLabelLvInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLvInfoMouseClicked
         // TODO add your handling code here:
+        typeInfo = "Livre";
 
         idLv = (int) jSpinnerLvID.getValue();
-        Informations i = new Informations();
-        i.setVisible(true);
+
+        if (jLabelLvInfo.getText().equals("Livre informations")) {
+
+            JOptionPane.showMessageDialog(null, "Le livre que vous recherche n'existe pas", "Attention", 2);
+        } else {
+            Informations i = new Informations();
+            i.setVisible(true);
+        }
     }//GEN-LAST:event_jLabelLvInfoMouseClicked
+
+    private void jLabelAdhInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdhInfoMouseClicked
+        // TODO add your handling code here:
+        typeInfo = "Adherent";
+        idAdhr = (int) jSpinnerAdhID.getValue();
+
+        if (jLabelAdhInfo.getText().equals("Adherent informations")) {
+
+            JOptionPane.showMessageDialog(null, "L'adherent que vous recherche n'existe pas", "Attention", 2);
+        } else {
+            Informations i = new Informations();
+            i.setVisible(true);
+        }
+    }//GEN-LAST:event_jLabelAdhInfoMouseClicked
 
     /**
      * @param args the command line arguments

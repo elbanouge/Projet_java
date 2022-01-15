@@ -1,5 +1,6 @@
 package Forms;
 
+import Classes.Adherent;
 import Classes.Fonctions;
 import Classes.Livre;
 
@@ -11,6 +12,7 @@ public class Informations extends javax.swing.JFrame {
 
     Fonctions f = new Fonctions();
     Livre l = new Livre();
+    Adherent a = new Adherent();
 
     /**
      * Creates new form Genres
@@ -22,7 +24,11 @@ public class Informations extends javax.swing.JFrame {
         f.DisplayIcon(90, 80, null, "/Images/book.png", jLabelTitre);
         this.setLocationRelativeTo(null);
 
-        DisplayInfoLivre();
+        if (EmpruntLivre.typeInfo.equals("Livre")) {
+            DisplayInfoLivre();
+        } else if (EmpruntLivre.typeInfo.equals("Adherent")) {
+            DisplayInfoAdherent();
+        }
     }
 
     /**
@@ -42,6 +48,7 @@ public class Informations extends javax.swing.JFrame {
         jLabelTitre5 = new javax.swing.JLabel();
         jLabelTitre4 = new javax.swing.JLabel();
         jLabelTitre1 = new javax.swing.JLabel();
+        jPanelDesc = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea = new javax.swing.JTextArea();
 
@@ -57,7 +64,7 @@ public class Informations extends javax.swing.JFrame {
         jLabelTitre.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jLabelTitre.setForeground(new java.awt.Color(103, 111, 163));
         jLabelTitre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitre.setText("Informations");
+        jLabelTitre.setText("Information Titre");
         jLabelTitre.setOpaque(true);
 
         jLabelClose.setBackground(new java.awt.Color(205, 222, 255));
@@ -77,7 +84,7 @@ public class Informations extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabelTitre, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addComponent(jLabelTitre, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabelClose, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -110,18 +117,40 @@ public class Informations extends javax.swing.JFrame {
         jLabelTitre1.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabelTitre1.setText("TitLabel1 :");
 
+        jPanelDesc.setBackground(new java.awt.Color(255, 255, 255));
+
         jTextArea.setColumns(20);
         jTextArea.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jTextArea.setRows(5);
+        jTextArea.setEnabled(false);
         jScrollPane1.setViewportView(jTextArea);
+
+        javax.swing.GroupLayout jPanelDescLayout = new javax.swing.GroupLayout(jPanelDesc);
+        jPanelDesc.setLayout(jPanelDescLayout);
+        jPanelDescLayout.setHorizontalGroup(
+            jPanelDescLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanelDescLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelDescLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanelDescLayout.setVerticalGroup(
+            jPanelDescLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 142, Short.MAX_VALUE)
+            .addGroup(jPanelDescLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelDescLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,10 +160,9 @@ public class Informations extends javax.swing.JFrame {
                     .addComponent(jLabelTitre4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelTitre5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanelDesc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -153,16 +181,18 @@ public class Informations extends javax.swing.JFrame {
                 .addComponent(jLabelTitre4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelTitre5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelDesc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,6 +210,8 @@ public class Informations extends javax.swing.JFrame {
 
     public void DisplayInfoLivre() {
         Livre livre = l.getLivreById(EmpruntLivre.idLv, null);
+        jLabelTitre.setText("Information Livre");
+
         if (l != null) {
             jLabelTitre1.setText("ISBN : " + livre.getIsbn());
             jLabelTitre2.setText("Langue : " + livre.getLangue());
@@ -188,6 +220,22 @@ public class Informations extends javax.swing.JFrame {
             jLabelTitre5.setText("Nombre exemplaire : " + livre.getNbr_exemp());
             jTextArea.setText(" " + livre.getDesc());
             byte[] bs = livre.getImage();
+            f.DisplayIcon(jLabelImage.getWidth(), jLabelImage.getHeight(), bs, "", jLabelImage);
+        }
+    }
+
+    public void DisplayInfoAdherent() {
+        Adherent adherent = a.getAdherentById(null, EmpruntLivre.idAdhr);
+        jLabelTitre.setText("Information Adherent");
+
+        if (l != null) {
+            jLabelTitre1.setText("CNE : " + adherent.getCne());
+            jLabelTitre2.setText("Nom : " + adherent.getNom());
+            jLabelTitre3.setText("Prenom : " + adherent.getPrenom());
+            jLabelTitre4.setText("Date de naissance : " + adherent.getDateNaiss());
+            jLabelTitre5.setText("Email : " + adherent.getEmail());
+            jTextArea.setVisible(false);
+            byte[] bs = adherent.getImage();
             f.DisplayIcon(jLabelImage.getWidth(), jLabelImage.getHeight(), bs, "", jLabelImage);
         }
     }
@@ -302,6 +350,7 @@ public class Informations extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitre5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelDesc;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea;
     // End of variables declaration//GEN-END:variables
