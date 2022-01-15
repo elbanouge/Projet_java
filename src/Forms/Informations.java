@@ -25,9 +25,13 @@ public class Informations extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 
         if (EmpruntLivre.typeInfo.equals("Livre")) {
-            DisplayInfoLivre();
+            DisplayInfoLivre(EmpruntLivre.idLv);
         } else if (EmpruntLivre.typeInfo.equals("Adherent")) {
-            DisplayInfoAdherent();
+            DisplayInfoAdherent(EmpruntLivre.idAdhr);
+        } else if (RetourLivre.typeInfo.equals("LivreR")) {
+            DisplayInfoLivre(RetourLivre.idLv);
+        } else if (RetourLivre.typeInfo.equals("AdherentR")) {
+            DisplayInfoAdherent(RetourLivre.idAdhr);
         }
     }
 
@@ -208,8 +212,8 @@ public class Informations extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabelCloseMouseClicked
 
-    public void DisplayInfoLivre() {
-        Livre livre = l.getLivreById(EmpruntLivre.idLv, null);
+    public void DisplayInfoLivre(int id) {
+        Livre livre = l.getLivreById(id, null);
         jLabelTitre.setText("Information Livre");
 
         if (l != null) {
@@ -224,8 +228,8 @@ public class Informations extends javax.swing.JFrame {
         }
     }
 
-    public void DisplayInfoAdherent() {
-        Adherent adherent = a.getAdherentById(null, EmpruntLivre.idAdhr);
+    public void DisplayInfoAdherent(int id) {
+        Adherent adherent = a.getAdherentById(null, id);
         jLabelTitre.setText("Information Adherent");
 
         if (l != null) {

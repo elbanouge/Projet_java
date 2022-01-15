@@ -114,10 +114,10 @@ public class EmpruntLivre extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jLabel2.setText("Taper l'id de l'adherent :");
+        jLabel2.setText("Sélectionner l'id de l'adherent :");
 
         jLabel4.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jLabel4.setText("Taper l'id de livre  :");
+        jLabel4.setText("Sélectionner l'id de livre  :");
 
         jButtonAdd.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jButtonAdd.setText("Ajouter");
@@ -239,22 +239,22 @@ public class EmpruntLivre extends javax.swing.JFrame {
                                                     .addGap(10, 10, 10)
                                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jLabelLvInfo)
-                                                        .addComponent(jLabelAdhInfo))))
+                                                        .addComponent(jLabelAdhInfo)
+                                                        .addComponent(jLabelOuiNon))))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jButtonRchLv, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jButtonRchAdh, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addComponent(jLabelOuiNon)
                                         .addComponent(jDateChooserDateEmp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel11)
                                         .addComponent(jLabel12))
-                                    .addGap(74, 74, 74)
+                                    .addGap(114, 114, 114)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jDateChooserDateRetour, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jScrollPane1)))))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(

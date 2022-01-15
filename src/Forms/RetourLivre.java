@@ -1,7 +1,9 @@
 package Forms;
 
+import Classes.Adherent;
 import Classes.Emprunter;
 import Classes.Fonctions;
+import Classes.Livre;
 import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,12 +20,14 @@ public class RetourLivre extends javax.swing.JFrame {
 
     Fonctions f = new Fonctions();
     Emprunter emprunter = new Emprunter();
-
+    Livre l = new Livre();
+    Adherent a = new Adherent();
+    
     /**
      * Creates new form Genres
      */
     public RetourLivre() {
-        //test
+
         initComponents();
         f.DisplayIcon(45, 40, null, "/Images/CloseIcon.png", jLabelClose);
         f.DisplayIcon(90, 80, null, "/Images/book.png", jLabelTitre);
@@ -139,16 +143,41 @@ public class RetourLivre extends javax.swing.JFrame {
         jLabelLvInfo.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabelLvInfo.setForeground(new java.awt.Color(51, 51, 255));
         jLabelLvInfo.setText("Livre informations");
+        jLabelLvInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelLvInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLvInfoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabelLvInfoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabelLvInfoMouseExited(evt);
+            }
+        });
 
         jLabelAdhInfo.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabelAdhInfo.setForeground(new java.awt.Color(51, 51, 255));
         jLabelAdhInfo.setText("Adherent informations");
+        jLabelAdhInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelAdhInfo.setDoubleBuffered(true);
+        jLabelAdhInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAdhInfoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabelAdhInfoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabelAdhInfoMouseExited(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jLabel2.setText("Taper l'id de l'adherent :");
+        jLabel2.setText("Sélectionner l'id de l'adherent :");
 
         jLabel4.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jLabel4.setText("Taper l'id de livre  :");
+        jLabel4.setText("Sélectionner l'id de livre  :");
 
         jDateChooserDateEmp.setEnabled(false);
 
@@ -324,7 +353,15 @@ public class RetourLivre extends javax.swing.JFrame {
             int index = jTableEmpLivres.getSelectedRow();
 
             int idLv = Integer.parseInt(jTableEmpLivres.getValueAt(index, 1).toString());
+            
+            Livre livre = l.getLivreById(idLv, null);
+            jLabelLvInfo.setText(livre.getTitre());
+            
             int idAdh = Integer.parseInt(jTableEmpLivres.getValueAt(index, 2).toString());
+            
+            Adherent adherent = a.getAdherentById(null, idAdh);
+            jLabelAdhInfo.setText(adherent.getNom()+" "+adherent.getPrenom());
+            
             String dateE = jTableEmpLivres.getValueAt(index, 3).toString();
             String dateR = jTableEmpLivres.getValueAt(index, 4).toString();
             String statut = jTableEmpLivres.getValueAt(index, 5).toString();
@@ -455,6 +492,58 @@ public class RetourLivre extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Emprunt livre n'est pas supprime", "Attention", 2);
         }
     }//GEN-LAST:event_jButtonSuppActionPerformed
+
+    public static String typeInfo = "";
+    public static int idLv;
+    public static int idAdhr;
+    private void jLabelLvInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLvInfoMouseClicked
+        // TODO add your handling code here:
+        typeInfo = "LivreR";
+
+        idLv = (int) jSpinnerLvID.getValue();
+
+        if (jLabelLvInfo.getText().equals("Livre informations")) {
+
+            JOptionPane.showMessageDialog(null, "Le livre que vous recherche n'existe pas", "Attention", 2);
+        } else {
+            Informations i = new Informations();
+            i.setVisible(true);
+        }
+    }//GEN-LAST:event_jLabelLvInfoMouseClicked
+
+    private void jLabelAdhInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdhInfoMouseClicked
+        // TODO add your handling code here:
+        typeInfo = "AdherentR";
+        idAdhr = (int) jSpinnerAdhID.getValue();
+
+        if (jLabelAdhInfo.getText().equals("Adherent informations")) {
+
+            JOptionPane.showMessageDialog(null, "L'adherent que vous recherche n'existe pas", "Attention", 2);
+        } else {
+            Informations i = new Informations();
+            i.setVisible(true);
+        }
+    }//GEN-LAST:event_jLabelAdhInfoMouseClicked
+
+    private void jLabelLvInfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLvInfoMouseEntered
+        // TODO add your handling code here:
+        f.setBorderToJLabel(new Color(51, 51, 255), jLabelLvInfo);
+    }//GEN-LAST:event_jLabelLvInfoMouseEntered
+
+    private void jLabelLvInfoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLvInfoMouseExited
+        // TODO add your handling code here:
+        f.setBorderToJLabel(Color.WHITE, jLabelLvInfo);
+    }//GEN-LAST:event_jLabelLvInfoMouseExited
+
+    private void jLabelAdhInfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdhInfoMouseEntered
+        // TODO add your handling code here:
+        f.setBorderToJLabel(new Color(51, 51, 255), jLabelAdhInfo);
+    }//GEN-LAST:event_jLabelAdhInfoMouseEntered
+
+    private void jLabelAdhInfoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdhInfoMouseExited
+        // TODO add your handling code here:
+        f.setBorderToJLabel(Color.WHITE, jLabelAdhInfo);
+    }//GEN-LAST:event_jLabelAdhInfoMouseExited
 
     public void AfficherLivreEmp(String stat) {
 
