@@ -118,7 +118,7 @@ public class Fonctions {
         label.setBorder(border);
     }
 
-    public static Integer TryParseInt(String someText) {
+    public Integer TryParseInt(String someText) {
         try {
             return Integer.parseInt(someText);
         } catch (NumberFormatException ex) {

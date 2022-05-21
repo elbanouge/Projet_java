@@ -29,8 +29,8 @@ public class ListeLivres extends javax.swing.JFrame {
         f.DisplayIcon(90, 80, null, "/Images/book.png", jLabelTitre);
         this.setLocationRelativeTo(null);
 
-        f.customTable(jTableAdherents);
-        f.customHeaderTable(jTableAdherents, new Color(103, 111, 163), 20);
+        f.customTable(jTableLivres);
+        f.customHeaderTable(jTableLivres, new Color(103, 111, 163), 20);
         AfficherLivres("");
     }
 
@@ -49,7 +49,7 @@ public class ListeLivres extends javax.swing.JFrame {
         jTextFieldThOrTitLv = new javax.swing.JTextField();
         jButtonRch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableAdherents = new javax.swing.JTable();
+        jTableLivres = new javax.swing.JTable();
         jLabelImage = new javax.swing.JLabel();
         jLabelNom = new javax.swing.JLabel();
         jLabelPrenom = new javax.swing.JLabel();
@@ -119,7 +119,7 @@ public class ListeLivres extends javax.swing.JFrame {
             }
         });
 
-        jTableAdherents.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLivres.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -127,12 +127,12 @@ public class ListeLivres extends javax.swing.JFrame {
 
             }
         ));
-        jTableAdherents.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableLivres.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableAdherentsMouseClicked(evt);
+                jTableLivresMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableAdherents);
+        jScrollPane1.setViewportView(jTableLivres);
 
         jLabelImage.setText("jLabel1");
 
@@ -239,12 +239,13 @@ public class ListeLivres extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonRchActionPerformed
 
-    private void jTableAdherentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAdherentsMouseClicked
+    private void jTableLivresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLivresMouseClicked
 
         // TODO add your handling code here:
-        int index = jTableAdherents.getSelectedRow();
-        String isbn = jTableAdherents.getValueAt(index, 0).toString();
-        Livre l = livre.getLivreById(Integer.parseInt(isbn), isbn);
+        int index = jTableLivres.getSelectedRow();
+        String isbn = jTableLivres.getValueAt(index, 0).toString();
+
+        Livre l = livre.getLivreById(0, isbn);
         jLabelCNE.setText("ISBN : " + l.getIsbn());
         jLabelNom.setText("Langue : " + l.getLangue());
         jLabelPrenom.setText("Titre : " + l.getTitre());
@@ -252,7 +253,7 @@ public class ListeLivres extends javax.swing.JFrame {
         jLabelEmail.setText("Nombre Exemplaire : " + l.getNbr_exemp());
         byte[] bs = l.getImage();
         f.DisplayIcon(jLabelImage.getWidth(), jLabelImage.getHeight(), bs, "", jLabelImage);
-    }//GEN-LAST:event_jTableAdherentsMouseClicked
+    }//GEN-LAST:event_jTableLivresMouseClicked
 
     public void AfficherLivres(String req) {
 
@@ -286,7 +287,7 @@ public class ListeLivres extends javax.swing.JFrame {
         }
 
         DefaultTableModel model = new DefaultTableModel(lignes, colones);
-        jTableAdherents.setModel(model);
+        jTableLivres.setModel(model);
     }
 
     /**
@@ -402,7 +403,7 @@ public class ListeLivres extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableAdherents;
+    private javax.swing.JTable jTableLivres;
     private javax.swing.JTextField jTextFieldThOrTitLv;
     // End of variables declaration//GEN-END:variables
 }

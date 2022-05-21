@@ -254,7 +254,7 @@ public class Livre {
         String req = "SELECT * FROM `livre` L join `ecrire` E ON L.ID_LIVRE = E.ID_LIVRE WHERE E.ID_LIVRE = '"+idlv+"'";
         
         if(isbn != null){
-            req = "SELECT * FROM `livre` L join `ecrire` E ON L.ID_LIVRE = E.ID_LIVRE WHERE E.ID_LIVRE = '"+idlv+"' or ISBNLV = "+isbn+";";     
+            req = "SELECT * FROM `livre` L join `ecrire` E ON L.ID_LIVRE = E.ID_LIVRE WHERE E.ID_LIVRE = "+idlv+" or L.ISBNLV = '"+isbn+"';";     
         }
         
         rs = f.getData(req);

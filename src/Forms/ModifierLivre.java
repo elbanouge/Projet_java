@@ -492,7 +492,8 @@ public class ModifierLivre extends javax.swing.JFrame {
     byte[] img = null;
     private void jButtonModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModActionPerformed
         // TODO add your handling code here:
-
+        Livre l = null;
+        
         String isbn = jTextFieldISBN.getText();
         String titre = jTextFieldTitre.getText();
         String langue = jTextFieldLang.getText();
@@ -507,7 +508,12 @@ public class ModifierLivre extends javax.swing.JFrame {
         int theme = Integer.parseInt(sTheme[0]);
         String[] sAuteur = jTextFieldAut.getText().split(" - ");
         int auteur = Integer.parseInt(sAuteur[0]);
-        Livre l = livre.getLivreById(Integer.parseInt(isbn), isbn);
+
+        if (f.TryParseInt(isbn) == null) {
+            l = livre.getLivreById(0, isbn);
+        }else{
+            l = livre.getLivreById(Integer.parseInt(isbn), null);
+        }
 
         if (isbn.isEmpty()) {
             jLabelError.setText("* Entrer ISBN de livre");
@@ -603,8 +609,15 @@ public class ModifierLivre extends javax.swing.JFrame {
     private void jButtonIRchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIRchActionPerformed
         // TODO add your handling code here:
         try {
+            Livre l = null;
+
             String isbn_ID = jTextFieldISBN.getText();
-            Livre l = livre.getLivreById(Integer.parseInt(isbn_ID), isbn_ID);
+            System.out.println(f.TryParseInt(isbn_ID));
+            if (f.TryParseInt(isbn_ID) == null) {
+                l = livre.getLivreById(0, isbn_ID);
+            } else {
+                l = livre.getLivreById(Integer.parseInt(isbn_ID), null);
+            }
 
             if (l != null) {
                 jTextFieldTitre.setText(l.getTitre());

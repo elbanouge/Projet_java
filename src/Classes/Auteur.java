@@ -133,7 +133,7 @@ public class Auteur {
                 JOptionPane.showMessageDialog(null, "Auteur n'est pas supprime", "Attention", 2);
             }
         } catch (SQLException exception) {
-            JOptionPane.showMessageDialog(null, "Auteur n'est pas modifie", "Attention", 2);
+            JOptionPane.showMessageDialog(null, exception.getMessage(), "Attention", JOptionPane.ERROR_MESSAGE);
         }
     }
 
